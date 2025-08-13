@@ -2,6 +2,7 @@ import Link from "next/link";
 import { type SanityDocument, PortableText } from "next-sanity";
 
 import { client } from "@/sanity/client";
+import { portableTextComponents } from "@/components/PortableTextComponents";
 
 const ABOUT_QUERY = `*[_type == "landingPage" && slug.current == "about"][0]`;
 
@@ -28,8 +29,8 @@ export default async function AboutPage() {
       </Link>
       <h1 className="text-4xl font-bold mb-8">{aboutPage.name}</h1>
       {Array.isArray(aboutPage.body) && aboutPage.body.length > 0 && (
-        <div className="prose">
-          <PortableText value={aboutPage.body} />
+        <div>
+          <PortableText value={aboutPage.body} components={portableTextComponents} />
         </div>
       )}
     </main>

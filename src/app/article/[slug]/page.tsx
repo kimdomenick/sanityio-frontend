@@ -3,6 +3,7 @@ import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { client } from "@/sanity/client";
 import Link from "next/link";
+import { portableTextComponents } from "@/components/PortableTextComponents";
 
 const POST_QUERY = `*[_type == "article" && slug.current == $slug][0]`;
 
@@ -43,9 +44,9 @@ export default async function PostPage({
         />
       )}
       <h1 className="text-4xl font-bold mb-8">{post.name}</h1>
-      <div className="prose">
-        <p>Published: {new Date(post.date).toLocaleDateString()}</p>
-        {Array.isArray(post.body) && <PortableText value={post.body} />}
+      <div>
+        <p className="mb-4 text-gray-600">Published: {new Date(post.date).toLocaleDateString()}</p>
+        {Array.isArray(post.body) && <PortableText value={post.body} components={portableTextComponents} />}
       </div>
     </main>
   );

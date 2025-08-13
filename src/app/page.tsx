@@ -2,6 +2,7 @@ import Link from "next/link";
 import { type SanityDocument, PortableText } from "next-sanity";
 
 import { client } from "@/sanity/client";
+import { portableTextComponents } from "@/components/PortableTextComponents";
 
 const HOME_QUERY = `*[_type == "landingPage" && slug.current == "home"][0]`;
 const POSTS_QUERY = `*[
@@ -22,10 +23,12 @@ export default async function IndexPage() {
     <main className="container mx-auto min-h-screen max-w-3xl p-8">
       {homePage && (
         <div className="mb-12">
-          <h1 className="text-4xl font-bold mb-8">{homePage.name}</h1>
           {Array.isArray(homePage.body) && homePage.body.length > 0 && (
-            <div className="prose mb-8">
-              <PortableText value={homePage.body} />
+            <div className="mb-8">
+              <PortableText
+                value={homePage.body}
+                components={portableTextComponents}
+              />
             </div>
           )}
         </div>

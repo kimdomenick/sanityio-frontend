@@ -2,6 +2,7 @@ import Link from "next/link";
 import { type SanityDocument, PortableText } from "next-sanity";
 
 import { client } from "@/sanity/client";
+import { portableTextComponents } from "@/components/PortableTextComponents";
 
 const ARCHIVE_QUERY = `*[_type == "landingPage" && slug.current == "archive"][0]`;
 const ALL_POSTS_QUERY = `*[
@@ -35,14 +36,14 @@ export default async function ArchivePage() {
       </Link>
       <h1 className="text-4xl font-bold mb-8">{archivePage.name}</h1>
       {archivePage.body && (
-        <div className="prose mb-12">
+        <div className="mb-12">
           {(() => {
             try {
               // Ensure body is properly formatted for PortableText
               const bodyContent = Array.isArray(archivePage.body) ? archivePage.body : [];
               if (bodyContent.length === 0) return null;
 
-              return <PortableText value={bodyContent} />;
+              return <PortableText value={bodyContent} components={portableTextComponents} />;
             } catch (error) {
               console.error('PortableText error on archive page:', error);
               // Fallback: don't render the body content if there's an error
@@ -63,7 +64,7 @@ export default async function ArchivePage() {
                 {post.summary && (
                   <div className="text-sm mt-1">
                     {Array.isArray(post.summary) ? (
-                      <PortableText value={post.summary} />
+                      <PortableText value={post.summary} components={portableTextComponents} />
                     ) : (
                       <p>{post.summary}</p>
                     )}
