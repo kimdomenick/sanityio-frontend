@@ -5,19 +5,18 @@ import { usePathname } from "next/navigation";
 
 const navigationItems = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/archive", label: "Archive" },
+  { href: "/archive", label: "Writing Archive" },
 ];
 
 export default function Navigation() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed top-4 right-4 z-50" role="navigation" aria-label="Main navigation">
-      <ul className="flex gap-4 bg-white/90 backdrop-blur-sm border border-gray-200 rounded-lg px-4 py-2 shadow-sm">
+    <nav role="navigation" aria-label="Main navigation">
+      <ul className="flex gap-4">
         {navigationItems.map(({ href, label }) => {
           const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
-          
+
           return (
             <li key={href}>
               <Link
