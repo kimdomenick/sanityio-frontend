@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "./styles/globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -16,7 +16,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Rose Colored Code",
-  description: "A technical and creative portfolio by web developer and technical writer, Kim Rosenberry",
+  description:
+    "A technical and creative portfolio by web developer and technical writer, Kim Rosenberry",
 };
 
 export default function RootLayout({
@@ -30,9 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
         <Header />
-        <div className="flex-1">
-          {children}
-        </div>
+        <div className="flex-1">{children}</div>
         <Footer />
       </body>
     </html>
