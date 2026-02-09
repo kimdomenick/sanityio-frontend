@@ -1,5 +1,5 @@
 import Image from "next/image";
-import "../styles/portfolioCard.css";
+import "../app/styles/portfolioCard.css";
 
 interface PortfolioCardProps {
   title: string;

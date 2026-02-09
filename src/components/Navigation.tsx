@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -15,16 +15,15 @@ export default function Navigation() {
     <nav role="navigation" aria-label="Main navigation">
       <ul className="flex gap-4">
         {navigationItems.map(({ href, label }) => {
-          const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
+          const isActive =
+            pathname === href || (href !== "/" && pathname.startsWith(href));
 
           return (
             <li key={href}>
               <Link
                 href={href}
-                className={`px-3 py-1 rounded transition-colors ${
-                  isActive
-                    ? "bg-gray-900 text-white"
-                    : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                className={`px-3 py-3 rounded transition-colors ${
+                  isActive ? "bg-gray-900 text-white" : "conic-button"
                 }`}
                 aria-current={isActive ? "page" : undefined}
               >

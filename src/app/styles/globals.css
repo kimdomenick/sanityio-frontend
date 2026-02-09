@@ -121,3 +121,51 @@ span.rosey {
   max-width: 100px;
   height: auto;
 }
+
+.shiny-button {
+  border-color: #d9a3a9;
+  background: linear-gradient(
+    to bottom,
+    var(--burnt),
+    var(--peach) 25%,
+    white 30%,
+    var(--peach) 35%,
+    var(--burnt) 87%,
+    rgba(38, 38, 38, 0.8)
+  );
+}
+
+.conic-button {
+  box-shadow: inset 0 0 0 1px #c7aca0;
+  background: conic-gradient(
+    #e6c9bf,
+    #d2b5aa,
+    #cbaea3,
+    #d4b5ab,
+    #e5c3bd,
+    #d9c0b4,
+    #d9bcb1,
+    #c5a399,
+    #e3c6bc,
+    #e7cac0,
+    #dec0b5,
+    #d3b6ab,
+    #cfada1,
+    #d4b6ac,
+    #e2c6c0,
+    #e2c6c0,
+    #d2b1a6,
+    #d2b1a6,
+    #d1b4a9,
+    #e1c4ba,
+    #e5c9be,
+    #dec1b6,
+    #d3b6ab,
+    #ceb0a6,
+    #cfada3,
+    #d2b5aa,
+    #dabdb2,
+    #e5c9be,
+    #e6c9bf
+  );
+}
