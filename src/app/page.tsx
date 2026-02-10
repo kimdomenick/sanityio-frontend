@@ -47,21 +47,6 @@ export default async function IndexPage() {
           image="/globe.svg"
           description="A brief description of the project"
         />
-        <PortfolioCard
-          title="Project Name"
-          image="/globe.svg"
-          description="A brief description of the project"
-        />
-        <PortfolioCard
-          title="Project Name"
-          image="/globe.svg"
-          description="A brief description of the project"
-        />
-        <PortfolioCard
-          title="Project Name"
-          image="/globe.svg"
-          description="A brief description of the project"
-        />
       </section>
 
       <section id="articles" className="home__articles max-w-3xl mx-auto">
