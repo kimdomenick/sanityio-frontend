@@ -2,7 +2,7 @@ import Navigation from "./Navigation";
 
 export default function Header() {
   return (
-    <header className="w-full border-b border-gray-200">
+    <header className="site-header w-full border-b border-gray-200">
       <div className="container mx-auto px-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
