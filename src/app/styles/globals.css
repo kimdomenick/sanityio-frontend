@@ -59,8 +59,6 @@ body {
 */
 
 header {
-  /* From https://css.glass */
-  /* background: rgba(64, 31, 24, 0.63); */
   background: radial-gradient(
     circle farthest-corner at 25% 25%,
     #401f18 0%,
@@ -70,6 +68,19 @@ header {
   backdrop-filter: blur(8.2px);
   -webkit-backdrop-filter: blur(8.2px);
   border-bottom: 1px solid rgba(64, 31, 24, 0.61);
+}
+
+.site-title {
+  font-family: var(--font-thicccboi);
+  color: white;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.site-slogan {
+  font-family: var(--font-tenor-sans);
+  color: var(--soft-gold);
+  opacity: 0.95;
 }
 
 footer {
@@ -82,63 +93,7 @@ footer {
   background-color: var(--wine);
 }
 
-.radial {
-  background:
-    url("/rose-ring.png"),
-    radial-gradient(
-      ellipse at center,
-      #401f18 0%,
-      #ffffff00 85%,
-      #ffffff00 100%
-    );
-  background-position: center;
-  background-size: 100px, auto;
-  background-repeat: no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem 3rem;
-  position: relative;
-}
-
-h1.rosey,
-span.rosey {
-  font-family: var(--font-thicccboi), "Playfair Display", serif;
-  text-transform: uppercase;
-  font-size: 4rem;
-  margin: 0;
-  font-weight: 700;
-}
-
-h1.rosey {
-  background: linear-gradient(
-    to bottom,
-    var(--peach) 22%,
-    var(--wine) 24%,
-    white 26%,
-    var(--peach) 27%,
-    var(--burnt) 40%,
-    var(--wine) 78%
-  );
-  background-position: 0 1vw;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  position: relative;
-  z-index: 1;
-  color: #fff;
-  left: 0;
-}
-
-span.rosey {
-  position: absolute;
-  display: block;
-  text-shadow:
-    -5px 0 5px var(--wine),
-    0 5px 5px var(--wine),
-    8px 8px 10px rgba(0, 0, 0, 0.5),
-    -8px -8px 10px rgba(0, 0, 0, 0.5);
-  background: none;
-}
+/* Removed old radial and rosey styles - no longer used */
 
 .logo {
   max-width: 100px;
