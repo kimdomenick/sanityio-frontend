@@ -1,9 +1,12 @@
 import Link from "next/link";
-import { type SanityDocument, PortableText } from "next-sanity";
+import { PortableText } from "@portabletext/react";
 import { client } from "@/sanity/client";
 import { portableTextComponents } from "@/components/PortableTextComponents";
 import PortfolioCardExpanded from "@/components/PortfolioCardExpanded";
 import HorizontalScrollSection from "@/components/HorizontalScrollSection";
+
+// Type for Sanity documents
+type SanityDocument = Record<string, any>;
 
 const HOME_QUERY = `*[_type == "landingPage" && slug.current == "home"][0]`;
 const POSTS_QUERY = `*[

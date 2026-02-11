@@ -1,9 +1,12 @@
-import { PortableText, type SanityDocument } from "next-sanity";
+import { PortableText } from "@portabletext/react";
 import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { client } from "@/sanity/client";
 import Link from "next/link";
 import { portableTextComponents } from "@/components/PortableTextComponents";
+
+// Type for Sanity documents
+type SanityDocument = Record<string, any>;
 
 const POST_QUERY = `*[_type == "article" && slug.current == $slug][0]`;
 

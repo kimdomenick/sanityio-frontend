@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Tenor_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "./styles/globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -12,6 +13,33 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const tenorSans = Tenor_Sans({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-tenor-sans",
+});
+
+const thicccboi = localFont({
+  src: [
+    {
+      path: "../fonts/THICCCBOI-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/THICCCBOI-SemiBold.ttf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../fonts/THICCCBOI-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-thicccboi",
 });
 
 export const metadata: Metadata = {
@@ -28,7 +56,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${tenorSans.variable} ${thicccboi.variable} antialiased`}
       >
         <Header />
         <div className="main-content">{children}</div>

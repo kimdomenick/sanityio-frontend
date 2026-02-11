@@ -20,6 +20,8 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-tenor: var(--font-tenor-sans);
+  --font-thicccboi: var(--font-thicccboi);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -32,8 +34,29 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-tenor-sans), Arial, Helvetica, sans-serif;
 }
+
+/*
+  Font Usage Examples:
+
+  Tenor Sans (elegant serif-like sans):
+  font-family: var(--font-tenor-sans);
+
+  Thicccboi (bold display font):
+  font-family: var(--font-thicccboi);
+  Available weights: 400 (regular), 600 (semibold), 700 (bold)
+
+  Example:
+  .heading {
+    font-family: var(--font-thicccboi);
+    font-weight: 700;
+  }
+
+  .elegant-text {
+    font-family: var(--font-tenor-sans);
+  }
+*/
 
 header {
   /* From https://css.glass */
@@ -80,11 +103,11 @@ footer {
 
 h1.rosey,
 span.rosey {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-thicccboi), "Playfair Display", serif;
   text-transform: uppercase;
   font-size: 4rem;
   margin: 0;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 h1.rosey {
@@ -266,6 +289,7 @@ span.rosey {
 }
 
 .horizontal-scroll-section__title {
+  font-family: var(--font-thicccboi);
   font-size: 2rem;
   font-weight: 700;
   color: var(--wine);

@@ -1,8 +1,11 @@
 import Link from "next/link";
-import { type SanityDocument, PortableText } from "next-sanity";
+import { PortableText } from "@portabletext/react";
 
 import { client } from "@/sanity/client";
 import { portableTextComponents } from "@/components/PortableTextComponents";
+
+// Type for Sanity documents
+type SanityDocument = Record<string, any>;
 
 const ARCHIVE_QUERY = `*[_type == "landingPage" && slug.current == "archive"][0]`;
 const ALL_POSTS_QUERY = `*[

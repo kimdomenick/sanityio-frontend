@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PortableTextComponents } from "next-sanity";
+import { PortableTextComponents } from "@portabletext/react";
 
 export const portableTextComponents: PortableTextComponents = {
   block: {
