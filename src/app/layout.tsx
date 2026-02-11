@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Tenor_Sans } from "next/font/google";
 import localFont from "next/font/local";
 import "./styles/globals.css";
+import "./styles/typography.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 

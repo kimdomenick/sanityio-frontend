@@ -7,12 +7,14 @@
   --rich-gold: #a16778;
   --soft-gold: #e0bfb8;
   --alt-gold: #dca1a1;
-  --wine: #401f18;
+  --wine: #3f0920;
   --copper: #b87333;
   --brown: #4e3c2f;
   --tan: #fdf5dc;
   --peach: #f1ceae;
   --burnt: #d1895b;
+  --hot-pink: #f64c9d;
+  --lime: #c9e465;
 }
 
 @theme inline {
@@ -59,28 +61,20 @@ body {
 */
 
 header {
-  background: radial-gradient(
-    circle farthest-corner at 25% 25%,
-    #401f18 0%,
-    #a16778 100%
-  );
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(8.2px);
-  -webkit-backdrop-filter: blur(8.2px);
   border-bottom: 1px solid rgba(64, 31, 24, 0.61);
 }
 
 .site-title {
-  font-family: var(--font-thicccboi);
-  color: white;
+  font-family: var(--font-tenor-sans);
+  color: var(--wine);
   margin: 0;
   line-height: 1.2;
+  text-transform: uppercase;
 }
 
 .site-slogan {
-  font-family: var(--font-tenor-sans);
-  color: var(--soft-gold);
-  opacity: 0.95;
+  font-family: var(--font-thicccboi);
+  color: var(--rich-gold);
 }
 
 footer {
@@ -96,56 +90,8 @@ footer {
 /* Removed old radial and rosey styles - no longer used */
 
 .logo {
-  max-width: 100px;
+  max-width: 150px;
   height: auto;
-}
-
-.shiny-button {
-  border-color: #d9a3a9;
-  background: linear-gradient(
-    to bottom,
-    var(--burnt),
-    var(--peach) 25%,
-    white 30%,
-    var(--peach) 35%,
-    var(--burnt) 87%,
-    rgba(38, 38, 38, 0.8)
-  );
-}
-
-.conic-button {
-  box-shadow: inset 0 0 0 1px #c7aca0;
-  background: conic-gradient(
-    #e6c9bf,
-    #d2b5aa,
-    #cbaea3,
-    #d4b5ab,
-    #e5c3bd,
-    #d9c0b4,
-    #d9bcb1,
-    #c5a399,
-    #e3c6bc,
-    #e7cac0,
-    #dec0b5,
-    #d3b6ab,
-    #cfada1,
-    #d4b6ac,
-    #e2c6c0,
-    #e2c6c0,
-    #d2b1a6,
-    #d2b1a6,
-    #d1b4a9,
-    #e1c4ba,
-    #e5c9be,
-    #dec1b6,
-    #d3b6ab,
-    #ceb0a6,
-    #cfada3,
-    #d2b5aa,
-    #dabdb2,
-    #e5c9be,
-    #e6c9bf
-  );
 }
 
 /* Sticky Layout Styles */
@@ -173,7 +119,6 @@ footer {
   bottom: 0;
   padding-top: 120px; /* Adjust based on your header height */
   padding-bottom: 240px; /* Adjust based on your footer height */
-  overflow: hidden;
 }
 
 /* Horizontal Scrolling Section */
