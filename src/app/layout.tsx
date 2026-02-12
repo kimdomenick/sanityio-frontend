@@ -57,7 +57,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${tenorSans.variable} ${thicccboi.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${tenorSans.variable} ${thicccboi.variable} antialiased flex flex-col min-h-screen`}
       >
         <Header />
         <div className="main-content">{children}</div>

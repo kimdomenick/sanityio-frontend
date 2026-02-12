@@ -232,7 +232,7 @@
   background: var(--base-gold);
   color: white;
   border-radius: 6px;
-  text-decoration: none;
+  text-decoration: none !important;
   font-weight: 600;
   transition: all 0.2s ease;
 }

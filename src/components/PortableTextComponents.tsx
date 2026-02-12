@@ -42,28 +42,24 @@ export const portableTextComponents: PortableTextComponents = {
   marks: {
     link: ({ children, value }) => {
       const href = value?.href || "#";
-      
+
       // Check if it's an internal link
       const isInternal = href.startsWith("/") || href.startsWith("#");
-      
+
       if (isInternal) {
         return (
-          <Link 
-            href={href} 
-            className="underline text-[#00eca6] hover:text-[#00d695] transition-colors"
-          >
+          <Link href={href}>
             {children}
           </Link>
         );
       }
-      
+
       // External link
       return (
-        <a 
-          href={href} 
-          target="_blank" 
+        <a
+          href={href}
+          target="_blank"
           rel="noopener noreferrer"
-          className="underline text-[#00eca6] hover:text-[#00d695] transition-colors"
         >
           {children}
         </a>
