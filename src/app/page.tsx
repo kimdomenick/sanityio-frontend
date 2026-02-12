@@ -167,10 +167,14 @@ export default async function IndexPage() {
             <div className="overview-column">
               <h2 className="overview-column__title">Experience</h2>
               <p className="overview-column__content">
-                Over 27 years of building web applications, from early desktop
-                software to modern cloud-native platforms. I've worked across
-                the full stack, but my passion lies in crafting exceptional
-                frontend experiences that are both beautiful and resilient.
+                With over 27 years of building web applications,{" "}
+                <strong>I've outlived frameworks</strong>. From early, simple
+                sites with Macromedia Suite to complex, decoupled apps and APIs,
+                I've worked across the full stack, but my passion lies in
+                crafting exceptional frontend experiences.
+              </p>
+              <p>
+                <Link href="/about">My philosophy</Link>
               </p>
             </div>
 
@@ -183,7 +187,9 @@ export default async function IndexPage() {
             <div className="overview-column">
               <h2 className="overview-column__title">Current Situation</h2>
               <div className="overview-column__content">
-                {homePage && Array.isArray(homePage.body) && homePage.body.length > 0 ? (
+                {homePage &&
+                Array.isArray(homePage.body) &&
+                homePage.body.length > 0 ? (
                   <PortableText
                     value={homePage.body}
                     components={portableTextComponents}
@@ -207,11 +213,10 @@ export default async function IndexPage() {
             {/* Column 3: History */}
             <div className="overview-column">
               <h2 className="overview-column__title">History</h2>
+              <p className="overview-column__content">There's a lot of it.</p>
               <p className="overview-column__content">
-                From Visual Basic in the late 90s to modern frameworks today,
-                I've witnessed and participated in the web's evolution. Each
-                project below represents a milestone in my journey, showcasing
-                the technologies and challenges of their time.
+                Each project below represents a milestone in my journey,
+                showcasing the technologies and challenges of their time.
               </p>
             </div>
           </div>
