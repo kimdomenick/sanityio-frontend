@@ -23,110 +23,127 @@ const portfolioProjects = [
     title: "E-Commerce Platform",
     year: "2024",
     image: "/globe.svg",
-    description: "Built a full-stack e-commerce platform with real-time inventory management",
-    details: "Led the development of a comprehensive e-commerce solution serving 100k+ monthly users. Implemented real-time inventory tracking, payment processing, and order management systems.",
+    description:
+      "Built a full-stack e-commerce platform with real-time inventory management",
+    details:
+      "Led the development of a comprehensive e-commerce solution serving 100k+ monthly users. Implemented real-time inventory tracking, payment processing, and order management systems.",
     technologies: ["Next.js", "React", "Node.js", "PostgreSQL", "Stripe"],
-    link: "#"
+    link: "#",
   },
   {
     title: "Healthcare Portal",
     year: "2022",
     image: "/globe.svg",
-    description: "HIPAA-compliant patient management system for healthcare providers",
-    details: "Developed a secure healthcare portal enabling patients to access medical records, schedule appointments, and communicate with providers while maintaining HIPAA compliance.",
+    description:
+      "HIPAA-compliant patient management system for healthcare providers",
+    details:
+      "Developed a secure healthcare portal enabling patients to access medical records, schedule appointments, and communicate with providers while maintaining HIPAA compliance.",
     technologies: ["React", "TypeScript", "AWS", "FHIR", "OAuth"],
-    link: "#"
+    link: "#",
   },
   {
     title: "Analytics Dashboard",
     year: "2021",
     image: "/globe.svg",
-    description: "Real-time data visualization platform for business intelligence",
-    details: "Created an interactive dashboard processing millions of data points daily, providing actionable insights through custom visualizations and automated reporting.",
+    description:
+      "Real-time data visualization platform for business intelligence",
+    details:
+      "Created an interactive dashboard processing millions of data points daily, providing actionable insights through custom visualizations and automated reporting.",
     technologies: ["Vue.js", "D3.js", "Python", "Redis", "MongoDB"],
-    link: "#"
+    link: "#",
   },
   {
     title: "Mobile App Suite",
     year: "2019",
     image: "/globe.svg",
     description: "Cross-platform mobile applications for iOS and Android",
-    details: "Developed and maintained mobile applications used by over 500k users. Implemented offline-first architecture and real-time synchronization.",
+    details:
+      "Developed and maintained mobile applications used by over 500k users. Implemented offline-first architecture and real-time synchronization.",
     technologies: ["React Native", "Firebase", "GraphQL", "Redux"],
-    link: "#"
+    link: "#",
   },
   {
     title: "Content Management System",
     year: "2017",
     image: "/globe.svg",
     description: "Custom CMS for enterprise content workflows",
-    details: "Built a headless CMS supporting multi-language content, version control, and collaborative editing for a global publishing company.",
+    details:
+      "Built a headless CMS supporting multi-language content, version control, and collaborative editing for a global publishing company.",
     technologies: ["Node.js", "Express", "MongoDB", "React", "Elasticsearch"],
-    link: "#"
+    link: "#",
   },
   {
     title: "Financial Trading Platform",
     year: "2015",
     image: "/globe.svg",
-    description: "High-frequency trading system with microsecond latency requirements",
-    details: "Architected a low-latency trading platform processing thousands of transactions per second with real-time market data integration.",
+    description:
+      "High-frequency trading system with microsecond latency requirements",
+    details:
+      "Architected a low-latency trading platform processing thousands of transactions per second with real-time market data integration.",
     technologies: ["C++", "Python", "PostgreSQL", "WebSocket", "Redis"],
-    link: "#"
+    link: "#",
   },
   {
     title: "Social Media Platform",
     year: "2013",
     image: "/globe.svg",
-    description: "Niche social networking site with video streaming capabilities",
-    details: "Built a social platform featuring user-generated content, live streaming, and community moderation tools serving 200k+ active users.",
+    description:
+      "Niche social networking site with video streaming capabilities",
+    details:
+      "Built a social platform featuring user-generated content, live streaming, and community moderation tools serving 200k+ active users.",
     technologies: ["Ruby on Rails", "PostgreSQL", "Redis", "AWS S3", "FFmpeg"],
-    link: "#"
+    link: "#",
   },
   {
     title: "Booking System",
     year: "2011",
     image: "/globe.svg",
     description: "Hotel and restaurant reservation management system",
-    details: "Developed a comprehensive booking platform with calendar management, payment processing, and automated confirmation systems.",
+    details:
+      "Developed a comprehensive booking platform with calendar management, payment processing, and automated confirmation systems.",
     technologies: ["PHP", "MySQL", "jQuery", "PayPal API"],
-    link: "#"
+    link: "#",
   },
   {
     title: "Educational Platform",
     year: "2009",
     image: "/globe.svg",
     description: "Online learning management system for K-12 education",
-    details: "Created an LMS enabling teachers to create courses, track student progress, and facilitate online learning with interactive content.",
+    details:
+      "Created an LMS enabling teachers to create courses, track student progress, and facilitate online learning with interactive content.",
     technologies: ["ASP.NET", "SQL Server", "JavaScript", "Flash"],
-    link: "#"
+    link: "#",
   },
   {
     title: "CRM System",
     year: "2006",
     image: "/globe.svg",
     description: "Customer relationship management tool for sales teams",
-    details: "Built a CRM system tracking customer interactions, sales pipeline, and automated follow-up workflows for small to medium businesses.",
+    details:
+      "Built a CRM system tracking customer interactions, sales pipeline, and automated follow-up workflows for small to medium businesses.",
     technologies: ["Java", "Spring", "MySQL", "JSP"],
-    link: "#"
+    link: "#",
   },
   {
     title: "Corporate Website",
     year: "2003",
     image: "/globe.svg",
     description: "Enterprise website with content management capabilities",
-    details: "Designed and developed corporate websites with custom CMS, allowing non-technical staff to update content and manage site structure.",
+    details:
+      "Designed and developed corporate websites with custom CMS, allowing non-technical staff to update content and manage site structure.",
     technologies: ["PHP", "MySQL", "JavaScript", "CSS"],
-    link: "#"
+    link: "#",
   },
   {
     title: "Database Application",
     year: "1998",
     image: "/globe.svg",
     description: "Desktop application for inventory management",
-    details: "Created a Windows desktop application for tracking inventory, generating reports, and managing supplier relationships for retail businesses.",
+    details:
+      "Created a Windows desktop application for tracking inventory, generating reports, and managing supplier relationships for retail businesses.",
     technologies: ["Visual Basic", "Access", "SQL"],
-    link: "#"
-  }
+    link: "#",
+  },
 ];
 
 export default async function IndexPage() {
@@ -137,6 +154,12 @@ export default async function IndexPage() {
 
   return (
     <main className="home">
+      <section id="hello" className="home__hello">
+        <p>
+          Hi, I’m Kimberly Rosenberry. I build thoughtful, resilient frontend
+          systems.
+        </p>
+      </section>
       {homePage && (
         <section id="overview" className="home__overview">
           <div className="container mx-auto max-w-3xl px-8 py-12">
