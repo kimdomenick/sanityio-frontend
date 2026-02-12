@@ -160,20 +160,63 @@ export default async function IndexPage() {
           systems.
         </p>
       </section>
-      {homePage && (
-        <section id="overview" className="home__overview">
-          <div className="container mx-auto max-w-3xl px-8 py-12">
-            {Array.isArray(homePage.body) && homePage.body.length > 0 && (
-              <div>
-                <PortableText
-                  value={homePage.body}
-                  components={portableTextComponents}
-                />
+      <section id="overview" className="home__overview">
+        <div className="container mx-auto px-8 py-12">
+          <div className="overview-grid">
+            {/* Column 1: Experience */}
+            <div className="overview-column">
+              <h2 className="overview-column__title">Experience</h2>
+              <p className="overview-column__content">
+                Over 27 years of building web applications, from early desktop
+                software to modern cloud-native platforms. I've worked across
+                the full stack, but my passion lies in crafting exceptional
+                frontend experiences that are both beautiful and resilient.
+              </p>
+            </div>
+
+            {/* Icon/Graphic 1 */}
+            <div className="overview-icon">
+              <div className="overview-icon__placeholder">✦</div>
+            </div>
+
+            {/* Column 2: Current Situation */}
+            <div className="overview-column">
+              <h2 className="overview-column__title">Current Situation</h2>
+              <div className="overview-column__content">
+                {homePage && Array.isArray(homePage.body) && homePage.body.length > 0 ? (
+                  <PortableText
+                    value={homePage.body}
+                    components={portableTextComponents}
+                  />
+                ) : (
+                  <p>
+                    Currently focused on building scalable frontend
+                    architectures and mentoring development teams. I specialize
+                    in React, Next.js, and TypeScript, creating systems that
+                    teams love to work with.
+                  </p>
+                )}
               </div>
-            )}
+            </div>
+
+            {/* Icon/Graphic 2 */}
+            <div className="overview-icon">
+              <div className="overview-icon__placeholder">✧</div>
+            </div>
+
+            {/* Column 3: History */}
+            <div className="overview-column">
+              <h2 className="overview-column__title">History</h2>
+              <p className="overview-column__content">
+                From Visual Basic in the late 90s to modern frameworks today,
+                I've witnessed and participated in the web's evolution. Each
+                project below represents a milestone in my journey, showcasing
+                the technologies and challenges of their time.
+              </p>
+            </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       <section id="history" className="home__history">
         <HorizontalScrollSection title="27 Years of Innovation">
