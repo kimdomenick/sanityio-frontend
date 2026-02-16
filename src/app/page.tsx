@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { PortableText } from "@portabletext/react";
 import { client } from "@/sanity/client";
 import { portableTextComponents } from "@/components/PortableTextComponents";
@@ -180,7 +181,13 @@ export default async function IndexPage() {
 
             {/* Icon/Graphic 1 */}
             <div className="overview-icon">
-              <div className="overview-icon__placeholder">✦</div>
+              <Image
+                src="/stars.svg"
+                alt=""
+                width={70}
+                height={70}
+                className="overview-icon__svg"
+              />
             </div>
 
             {/* Column 2: Current Situation */}
@@ -207,7 +214,13 @@ export default async function IndexPage() {
 
             {/* Icon/Graphic 2 */}
             <div className="overview-icon">
-              <div className="overview-icon__placeholder">✧</div>
+              <Image
+                src="/stars.svg"
+                alt=""
+                width={70}
+                height={70}
+                className="overview-icon__svg"
+              />
             </div>
 
             {/* Column 3: History */}
