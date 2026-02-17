@@ -201,14 +201,7 @@ export default async function IndexPage() {
                     value={homePage.body}
                     components={portableTextComponents}
                   />
-                ) : (
-                  <p>
-                    Currently focused on building scalable frontend
-                    architectures and mentoring development teams. I specialize
-                    in React, Next.js, and TypeScript, creating systems that
-                    teams love to work with.
-                  </p>
-                )}
+                ) : null}
               </div>
             </div>
 
