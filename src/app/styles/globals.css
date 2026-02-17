@@ -166,6 +166,13 @@ footer {
   background-position: bottom center;
   background-size: 100% 100%; /* Stretches SVG to fill full width and height */
   background-blend-mode: soft-light; /* Blends the SVG with the color */
+  border: 4px solid transparent; /* Required for border-image to show through */
+  border-image: linear-gradient(
+    90deg,
+    var(--hot-pink) 0%,
+    var(--lime) 100%
+  ); /* The linear gradient */
+  border-image-slice: 1; /* Slices the image into border sections */
 }
 
 .main-content {
@@ -212,14 +219,16 @@ footer {
 
 .horizontal-scroll-content {
   display: flex;
-  gap: 2rem;
+  gap: 2.5rem;
   padding: 2rem;
   height: 100%;
   min-width: max-content;
+  align-items: stretch;
 }
 
 .horizontal-scroll-content > * {
   scroll-snap-align: start;
+  align-self: stretch;
   flex-shrink: 0;
   width: 400px;
   max-width: 90vw;
@@ -373,7 +382,7 @@ footer {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: var(--base-gold);
+  background: var(--wine);
   color: white;
   border: none;
   cursor: pointer;
@@ -419,11 +428,7 @@ footer {
 
 .horizontal-scroll-section__progress-fill {
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    var(--base-gold) 0%,
-    var(--rich-gold) 100%
-  );
+  background: linear-gradient(90deg, var(--wine) 0%, var(--rich-gold) 100%);
   border-radius: 2px;
   transition: width 0.1s ease-out;
 }
