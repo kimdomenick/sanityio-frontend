@@ -56,7 +56,9 @@ export default async function IndexPage() {
   const portfolioProjects = portfolioItems.map((item: any) => ({
     title: item.title,
     year: item.year?.toString() || "",
-    image: item.image ? urlFor(item.image)?.width(400).height(300).url() || "/globe.svg" : "/globe.svg",
+    image: item.image
+      ? urlFor(item.image)?.width(400).height(300).url() || "/globe.svg"
+      : "/globe.svg",
     description: item.shortDescription || "",
     details: item.body ? "" : item.shortDescription || "", // Will use body in modal
     technologies: item.technologies || [],
@@ -93,7 +95,7 @@ export default async function IndexPage() {
             {/* Icon/Graphic 1 */}
             <div className="overview-icon">
               <Image
-                src="/stars.svg"
+                src="/star.svg"
                 alt=""
                 width={70}
                 height={70}
@@ -119,7 +121,7 @@ export default async function IndexPage() {
             {/* Icon/Graphic 2 */}
             <div className="overview-icon">
               <Image
-                src="/stars.svg"
+                src="/star.svg"
                 alt=""
                 width={70}
                 height={70}
