@@ -24,7 +24,8 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-tenor: var(--font-tenor-sans);
-  --font-thicccboi: var(--font-thicccboi);
+  --font-pacifico: var(--font-pacifico);
+  --font-abril-fatface: var(--font-abril-fatface);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,6 +39,12 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-tenor-sans), Arial, Helvetica, sans-serif;
+}
+
+h2 {
+  font-family: var(--font-abril-fatface);
+  font-size: 2.5rem;
+  font-weight: 400;
 }
 
 /* Accessible link styles with hot pink accent */
@@ -85,7 +92,7 @@ blockquote::before {
   position: absolute;
   left: 0.75rem;
   top: 0.5rem;
-  font-family: var(--font-thicccboi);
+  font-family: var(--font-tenor-sans);
   font-size: 3rem;
   line-height: 1;
   color: var(--lime);
@@ -109,7 +116,7 @@ blockquote footer {
   font-size: 0.95rem;
   font-style: normal;
   color: var(--rich-gold);
-  font-family: var(--font-thicccboi);
+  font-family: var(--font-tenor-sans);
   font-weight: 600;
 }
 
@@ -132,7 +139,7 @@ header {
 }
 
 .site-slogan {
-  font-family: var(--font-thicccboi);
+  font-family: var(--font-tenor-sans);
   color: var(--rich-gold);
 }
 
@@ -252,9 +259,9 @@ header {
 }
 
 .home__hello p {
-  font-family: var(--font-thicccboi);
-  font-size: clamp(1.25rem, 3vw, 2rem);
-  font-weight: 700;
+  font-family: var(--font-abril-fatface);
+  font-size: 2.5rem;
+  font-weight: 400;
   line-height: 1.4;
   color: var(--wine);
   margin: 0 auto;
@@ -335,7 +342,7 @@ header {
 }
 
 .horizontal-scroll-section__title {
-  font-family: var(--font-thicccboi);
+  font-family: var(--font-tenor-sans);
   font-size: 2rem;
   font-weight: 700;
   color: var(--wine);

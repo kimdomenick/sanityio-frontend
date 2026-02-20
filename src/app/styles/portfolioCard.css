@@ -39,13 +39,13 @@
 }
 
 .portfolioCard__title {
-  font-family: var(--font-thicccboi);
+  font-family: var(--font-tenor-sans);
   font-size: 1.5rem;
-  font-weight: 700;
   margin: 0;
   color: var(--wine);
   border-bottom: 2px solid var(--lime);
   padding-bottom: 0.5rem;
+  font-weight: 400;
 }
 
 .portfolioCard__description {
@@ -57,7 +57,7 @@
 }
 
 .portfolioCard__button {
-  font-family: var(--font-thicccboi);
+  font-family: var(--font-tenor-sans);
   align-self: flex-start;
   padding: 0.75rem 1.5rem;
   background: var(--watermelon);
@@ -195,7 +195,7 @@
 }
 
 .portfolioCard__modal-title {
-  font-family: var(--font-thicccboi);
+  font-family: var(--font-tenor-sans);
   font-size: 2rem;
   font-weight: 700;
   color: var(--wine);
@@ -224,7 +224,7 @@
 
 .portfolioCard__modal-details h4,
 .portfolioCard__modal-technologies h4 {
-  font-family: var(--font-thicccboi);
+  font-family: var(--font-tenor-sans);
   font-size: 1rem;
   font-weight: 700;
   color: white;
@@ -257,7 +257,7 @@
 }
 
 .portfolioCard__modal-link {
-  font-family: var(--font-thicccboi);
+  font-family: var(--font-tenor-sans);
   display: inline-block;
   padding: 0.875rem 1.75rem;
   background: linear-gradient(

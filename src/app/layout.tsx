@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Tenor_Sans } from "next/font/google";
-import localFont from "next/font/local";
+import { Geist, Geist_Mono, Tenor_Sans, Pacifico, Abril_Fatface } from "next/font/google";
 import "./styles/globals.css";
 import "./styles/typography.css";
 import Header from "@/components/Header";
@@ -22,25 +21,16 @@ const tenorSans = Tenor_Sans({
   variable: "--font-tenor-sans",
 });
 
-const thicccboi = localFont({
-  src: [
-    {
-      path: "../fonts/THICCCBOI-Regular.ttf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../fonts/THICCCBOI-SemiBold.ttf",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../fonts/THICCCBOI-Bold.ttf",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-  variable: "--font-thicccboi",
+const pacifico = Pacifico({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-pacifico",
+});
+
+const abrilFatface = Abril_Fatface({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-abril-fatface",
 });
 
 export const metadata: Metadata = {
@@ -57,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${tenorSans.variable} ${thicccboi.variable} antialiased flex flex-col min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} ${tenorSans.variable} ${pacifico.variable} ${abrilFatface.variable} antialiased flex flex-col min-h-screen`}
       >
         <Header />
         <div className="main-content">{children}</div>

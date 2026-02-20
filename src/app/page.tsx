@@ -70,8 +70,8 @@ export default async function IndexPage() {
     <main className="home">
       <section id="hello" className="home__hello">
         <p>
-          Hi, I’m Kimberly Rosenberry. I build thoughtful, resilient frontend
-          systems.
+          Hi, I’m Kimberly Rosenberry. <br />I build thoughtful, resilient
+          frontend systems.
         </p>
       </section>
       <section id="overview" className="home__overview">
