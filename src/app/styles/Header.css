@@ -1,0 +1,23 @@
+.site-header {
+  position: relative;
+  z-index: 100;
+  border-bottom: 1px solid rgba(64, 31, 24, 0.61);
+
+  .site-title {
+    font-family: var(--font-tenor-sans);
+    color: var(--wine);
+    margin: 0;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .site-slogan {
+    font-family: var(--font-tenor-sans);
+    color: var(--rich-gold);
+  }
+
+  .logo {
+    max-width: 150px;
+    height: auto;
+  }
+}

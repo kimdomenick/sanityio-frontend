@@ -1,4 +1,5 @@
 import Image from "next/image";
+import "@/app/styles/Header.css";
 
 export default function Header() {
   return (

@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import "@/app/styles/HorizontalScrollSection.css";
 
 interface HorizontalScrollSectionProps {
   children: React.ReactNode;
