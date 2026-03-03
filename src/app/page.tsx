@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
-// @ts-expect-error - @sanity/image-url doesn't have type definitions
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "@/sanity/client";
 import { portableTextComponents } from "@/components/PortableTextComponents";
@@ -157,6 +156,11 @@ export default async function IndexPage() {
             />
           ))}
         </HorizontalScrollSection>
+      </section>
+      <section id="flip-flop" className="home__flip-flop">
+        <section></section>
+        <section></section>
+        <section></section>
       </section>
 
       {/* <section id="articles" className="home__articles max-w-3xl mx-auto">
