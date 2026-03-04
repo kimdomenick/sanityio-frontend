@@ -6,6 +6,7 @@ import { client } from "@/sanity/client";
 import { portableTextComponents } from "@/components/PortableTextComponents";
 import PortfolioCardExpanded from "@/components/PortfolioCardExpanded";
 import HorizontalScrollSection from "@/components/HorizontalScrollSection";
+import "@/app/styles/pages/home.css";
 
 // Type for Sanity documents
 type SanityDocument = Record<string, any>;
@@ -65,6 +66,18 @@ export default async function IndexPage() {
     body: item.body || null,
   }));
 
+  // Group projects by year (preserves desc order from query)
+  const projectsByYear = portfolioProjects.reduce(
+    (acc: Record<string, typeof portfolioProjects>, project: any) => {
+      const year = project.year || "Unknown";
+      if (!acc[year]) acc[year] = [];
+      acc[year].push(project);
+      return acc;
+    },
+    {},
+  );
+  const yearGroups = Object.entries(projectsByYear);
+
   return (
     <main className="home">
       <section id="hello" className="home__hello">
@@ -80,11 +93,12 @@ export default async function IndexPage() {
             <div className="overview-column">
               <h2 className="overview-column__title">Experience</h2>
               <p className="overview-column__content">
-                With over 27 years of building web applications,{" "}
-                <strong>I've outlived frameworks</strong>. From early, simple
-                sites with Macromedia Suite to complex, decoupled apps and APIs,
-                I've worked across the full stack, but my passion lies in
-                crafting exceptional frontend experiences.
+                I stopped counting at 25 years. Let's just say I have 25+ years
+                of web development, and
+                <strong>I've outlived frameworks</strong>. From early, static
+                HTML sites to complex, decoupled apps and APIs, I've worked
+                across the full stack, but my passion lies in crafting
+                exceptional frontend experiences.
               </p>
               <p>
                 <Link href="/about">My philosophy</Link>
@@ -142,7 +156,7 @@ export default async function IndexPage() {
       </section>
 
       <section id="history" className="home__history">
-        <HorizontalScrollSection title="27 Years of Innovation">
+        <HorizontalScrollSection title="25+ Years of Innovation">
           {portfolioProjects.map((project: any, index: number) => (
             <PortfolioCardExpanded
               key={index}
@@ -158,9 +172,36 @@ export default async function IndexPage() {
         </HorizontalScrollSection>
       </section>
       <section id="flip-flop" className="home__flip-flop">
-        <section></section>
-        <section></section>
-        <section></section>
+        {yearGroups.map(([year, projects], index) => (
+          <section
+            key={year}
+            className={`home__flip-flop__year home__flip-flop__year--${year} ${index % 2 === 0 ? "odd" : "even"}`}
+          >
+            <div
+              className={`home__flip-flop__year home__flip-flop__year--${year} title`}
+            >
+              <h3>{year}</h3>
+            </div>
+            <div
+              className={`home__flip-flop__year home__flip-flop__year--${year} content`}
+            >
+              <HorizontalScrollSection showProgress={false}>
+                {(projects as any[]).map((project: any, cardIndex: number) => (
+                  <PortfolioCardExpanded
+                    key={cardIndex}
+                    title={project.title}
+                    year={project.year}
+                    image={project.image}
+                    description={project.description}
+                    details={project.details}
+                    technologies={project.technologies}
+                    link={project.link}
+                  />
+                ))}
+              </HorizontalScrollSection>
+            </div>
+          </section>
+        ))}
       </section>
 
       {/* <section id="articles" className="home__articles max-w-3xl mx-auto">

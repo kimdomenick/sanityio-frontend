@@ -7,11 +7,13 @@ import "@/app/styles/HorizontalScrollSection.css";
 interface HorizontalScrollSectionProps {
   children: React.ReactNode;
   title?: string;
+  showProgress?: boolean;
 }
 
 export default function HorizontalScrollSection({
   children,
   title,
+  showProgress = true,
 }: HorizontalScrollSectionProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -146,20 +148,22 @@ export default function HorizontalScrollSection({
       </div>
 
       {/* Progress Indicator */}
-      <div className="horizontal-scroll-section__progress-wrapper">
-        <div className="horizontal-scroll-section__progress-bar">
-          <motion.div
-            className="horizontal-scroll-section__progress-fill"
-            style={{ width: `${scrollProgress}%` }}
-            initial={{ width: 0 }}
-            animate={{ width: `${scrollProgress}%` }}
-            transition={{ duration: 0.1 }}
-          />
+      {showProgress && (
+        <div className="horizontal-scroll-section__progress-wrapper">
+          <div className="horizontal-scroll-section__progress-bar">
+            <motion.div
+              className="horizontal-scroll-section__progress-fill"
+              style={{ width: `${scrollProgress}%` }}
+              initial={{ width: 0 }}
+              animate={{ width: `${scrollProgress}%` }}
+              transition={{ duration: 0.1 }}
+            />
+          </div>
+          <div className="horizontal-scroll-section__progress-text">
+            Scroll to explore {Math.round(scrollProgress)}% viewed
+          </div>
         </div>
-        <div className="horizontal-scroll-section__progress-text">
-          Scroll to explore {Math.round(scrollProgress)}% viewed
-        </div>
-      </div>
+      )}
     </div>
   );
 }
