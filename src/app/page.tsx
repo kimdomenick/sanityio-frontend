@@ -93,11 +93,10 @@ export default async function IndexPage() {
             <div className="overview-column">
               <h2 className="overview-column__title">Experience</h2>
               <p className="overview-column__content">
-                I stopped counting at 25 years. Let's just say I have 25+ years
-                of web development, and
-                <strong>I've outlived frameworks</strong>. From early, static
-                HTML sites to complex, decoupled apps and APIs, I've worked
-                across the full stack, but my passion lies in crafting
+                I stopped counting at 25 years. Let's just say{" "}
+                <strong>I've outlived few frameworks</strong>. From early,
+                static HTML sites to complex, decoupled apps and APIs, I've
+                worked across the full stack, but my passion lies in building
                 exceptional frontend experiences.
               </p>
               <p>
@@ -155,50 +154,38 @@ export default async function IndexPage() {
         </div>
       </section>
 
-      <section id="history" className="home__history">
-        <HorizontalScrollSection title="25+ Years of Innovation">
-          {portfolioProjects.map((project: any, index: number) => (
-            <PortfolioCardExpanded
-              key={index}
-              title={project.title}
-              year={project.year}
-              image={project.image}
-              description={project.description}
-              details={project.details}
-              technologies={project.technologies}
-              link={project.link}
-            />
-          ))}
-        </HorizontalScrollSection>
-      </section>
       <section id="flip-flop" className="home__flip-flop">
         {yearGroups.map(([year, projects], index) => (
           <section
             key={year}
             className={`home__flip-flop__year home__flip-flop__year--${year} ${index % 2 === 0 ? "odd" : "even"}`}
           >
-            <div
-              className={`home__flip-flop__year home__flip-flop__year--${year} title`}
-            >
-              <h3>{year}</h3>
-            </div>
-            <div
-              className={`home__flip-flop__year home__flip-flop__year--${year} content`}
-            >
-              <HorizontalScrollSection showProgress={false}>
-                {(projects as any[]).map((project: any, cardIndex: number) => (
-                  <PortfolioCardExpanded
-                    key={cardIndex}
-                    title={project.title}
-                    year={project.year}
-                    image={project.image}
-                    description={project.description}
-                    details={project.details}
-                    technologies={project.technologies}
-                    link={project.link}
-                  />
-                ))}
-              </HorizontalScrollSection>
+            <div className="container mx-auto">
+              <div
+                className={`home__flip-flop__year home__flip-flop__year--${year} title`}
+              >
+                <h3>{year}</h3>
+              </div>
+              <div
+                className={`home__flip-flop__year home__flip-flop__year--${year} content`}
+              >
+                <HorizontalScrollSection showProgress={false}>
+                  {(projects as any[]).map(
+                    (project: any, cardIndex: number) => (
+                      <PortfolioCardExpanded
+                        key={cardIndex}
+                        title={project.title}
+                        year={project.year}
+                        image={project.image}
+                        description={project.description}
+                        details={project.details}
+                        technologies={project.technologies}
+                        link={project.link}
+                      />
+                    ),
+                  )}
+                </HorizontalScrollSection>
+              </div>
             </div>
           </section>
         ))}

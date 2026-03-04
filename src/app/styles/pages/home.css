@@ -1,4 +1,3 @@
-/* Home page styles */
 /* Home page specific styles */
 .home__history {
   height: 100%;
@@ -91,6 +90,48 @@
 
       .overview-icon {
         display: none;
+      }
+    }
+  }
+
+  &__flip-flop {
+    &__year {
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      &.odd {
+        background-color: var(--tan);
+      }
+
+      &.even {
+      }
+
+      .title {
+        h3 {
+          font-family: var(--font-abril-fatface);
+          font-size: 2.5rem;
+          font-weight: 400;
+          line-height: 1.4;
+          color: var(--wine);
+          margin: 0 auto;
+
+          &::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(
+              90deg,
+              var(--hot-pink) 0%,
+              var(--lime) 100%
+            );
+            margin: 1.5rem auto 0;
+            border-radius: 2px;
+          }
+        }
       }
     }
   }
