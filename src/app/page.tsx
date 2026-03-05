@@ -82,40 +82,20 @@ export default async function IndexPage() {
     <main className="home">
       <section id="hello" className="home__hello">
         <p>
-          Hi, I’m Kimberly Rosenberry. <br />I build thoughtful, resilient
-          frontend systems.
+          Building, analyzing, documenting, and improving the web for more than
+          25 years.
+        </p>
+        <p className="my-name">
+          Kimberly Rosenberry
+          <br />
+          Frontend developer • systems analyst • technical writer • UX
+          collaborator
         </p>
       </section>
       <section id="overview" className="home__overview">
         <div className="container mx-auto px-8 py-12">
           <div className="overview-grid">
-            {/* Column 1: Experience */}
-            <div className="overview-column">
-              <h2 className="overview-column__title">Experience</h2>
-              <p className="overview-column__content">
-                I stopped counting at 25 years. Let's just say{" "}
-                <strong>I've outlived few frameworks</strong>. From early,
-                static HTML sites to complex, decoupled apps and APIs, I've
-                worked across the full stack, but my passion lies in building
-                exceptional frontend experiences.
-              </p>
-              <p>
-                <Link href="/about">My philosophy</Link>
-              </p>
-            </div>
-
-            {/* Icon/Graphic 1 */}
-            <div className="overview-icon">
-              <Image
-                src="/star.svg"
-                alt=""
-                width={70}
-                height={70}
-                className="overview-icon__svg"
-              />
-            </div>
-
-            {/* Column 2: Current Situation */}
+            {/* Column: Current Situation */}
             <div className="overview-column">
               <h2 className="overview-column__title">Current Situation</h2>
               <div className="overview-column__content">
@@ -130,6 +110,32 @@ export default async function IndexPage() {
               </div>
             </div>
 
+            {/* Icon/Graphic 1 */}
+            <div className="overview-icon">
+              <Image
+                src="/star.svg"
+                alt=""
+                width={70}
+                height={70}
+                className="overview-icon__svg"
+              />
+            </div>
+
+            {/* Column: Experience */}
+            <div className="overview-column">
+              <h2 className="overview-column__title">Experience</h2>
+              <p className="overview-column__content">
+                I’ve been building for the web long enough to outlive a few
+                frameworks. My work has spanned development, systems analysis,
+                technical writing, UX/UI design and collaboration, and the
+                occasional DevOps adventure. My experience helps me see the full
+                picture behind every project.
+              </p>
+              <p>
+                <Link href="/about">My philosophy</Link>
+              </p>
+            </div>
+
             {/* Icon/Graphic 2 */}
             <div className="overview-icon">
               <Image
@@ -141,13 +147,13 @@ export default async function IndexPage() {
               />
             </div>
 
-            {/* Column 3: History */}
+            {/* Column: History */}
             <div className="overview-column">
               <h2 className="overview-column__title">History</h2>
               <p className="overview-column__content">There's a lot of it.</p>
               <p className="overview-column__content">
-                Each project below represents a milestone in my journey,
-                showcasing the technologies and challenges of their time.
+                Each project reflects the tools, trends, and challenges of its
+                time — some of which have aged better than others.
               </p>
             </div>
           </div>

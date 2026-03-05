@@ -16,7 +16,7 @@
 
     p {
       font-family: var(--font-abril-fatface);
-      font-size: 2.5rem;
+      font-size: 2rem;
       font-weight: 400;
       line-height: 1.4;
       color: var(--wine);
@@ -32,8 +32,19 @@
           var(--hot-pink) 0%,
           var(--lime) 100%
         );
-        margin: 1.5rem auto 0;
+        margin: 1.25rem auto;
         border-radius: 2px;
+      }
+    }
+
+    p.my-name {
+      font-family: var(--font-tenor-sans);
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--wine);
+
+      &::after {
+        display: none;
       }
     }
   }

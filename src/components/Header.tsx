@@ -23,7 +23,7 @@ export default function Header() {
               </h1>
               {/* Slogan */}
               <p className="site-slogan text-md">
-                Optimism, backed by a boat-load of experience.
+                Optimism, backed by decades in the trenches.
               </p>
             </div>
           </div>
