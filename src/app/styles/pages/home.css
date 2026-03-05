@@ -106,9 +106,6 @@
         background-color: var(--tan);
       }
 
-      &.even {
-      }
-
       .title {
         h3 {
           font-family: var(--font-abril-fatface);
