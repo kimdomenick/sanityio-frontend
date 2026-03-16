@@ -43,7 +43,18 @@ const urlFor = (source: any) =>
     ? imageUrlBuilder({ projectId, dataset }).image(source)
     : null;
 
-// Portfolio data is now fetched from Sanity in the component
+// Hard-coded year metadata (image + text) keyed by year string
+const yearMeta: Record<string, { image: string; text: string }> = {
+  "2003": { image: "/floral-branch.svg", text: "wow, this is really old" },
+  "2005": { image: "/floral-branch.svg", text: "wow, this is really old" },
+  "2008": { image: "/floral-branch.svg", text: "wow, this is really old" },
+  "2010": { image: "/floral-branch.svg", text: "wow, this is really old" },
+  "2011": { image: "/floral-branch.svg", text: "wow, this is really old" },
+  "2012": { image: "/floral-branch.svg", text: "wow, this is really old" },
+  "2013": { image: "/floral-branch.svg", text: "wow, this is really old" },
+  "2014": { image: "/floral-branch.svg", text: "wow, this is really old" },
+  "2015": { image: "/floral-branch.svg", text: "wow, this is really old" },
+};
 
 export default async function IndexPage() {
   const [homePage, posts, portfolioItems] = await Promise.all([
@@ -171,6 +182,17 @@ export default async function IndexPage() {
                 className={`home__flip-flop__year home__flip-flop__year--${year} title`}
               >
                 <h3>{year}</h3>
+                {yearMeta[year] && (
+                  <>
+                    <Image
+                      src={yearMeta[year].image}
+                      alt=""
+                      width={80}
+                      height={80}
+                    />
+                    <p>{yearMeta[year].text}</p>
+                  </>
+                )}
               </div>
               <div
                 className={`home__flip-flop__year home__flip-flop__year--${year} content`}
