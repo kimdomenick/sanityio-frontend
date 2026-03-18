@@ -126,12 +126,44 @@
 
       &.odd {
         background-color: var(--tan);
+
+        .title__blurb {
+          left: 20%;
+        }
       }
 
       &.even {
         .container {
           flex-direction: row-reverse;
         }
+
+        .title__blurb {
+          transform: translateX(-50%) rotate(calc(-1 * var(--blurb-rotate)));
+
+          &::before {
+            left: 20%;
+            transform: none;
+          }
+
+          &::after {
+            left: 12%;
+            transform: none;
+          }
+        }
+      }
+
+      /* Cycle through 4 rotation values */
+      &:nth-child(4n + 1) {
+        --blurb-rotate: -8deg;
+      }
+      &:nth-child(4n + 2) {
+        --blurb-rotate: 14deg;
+      }
+      &:nth-child(4n + 3) {
+        --blurb-rotate: -5deg;
+      }
+      &:nth-child(4n + 4) {
+        --blurb-rotate: 11deg;
       }
 
       .title {
@@ -148,17 +180,48 @@
 
         .title__blurb {
           position: absolute;
-          top: 1rem;
-          right: 1rem;
+          top: 1.25rem;
+          left: 50%;
           width: 300px;
-          transform: rotate(-12deg);
-          transform-origin: top right;
+          transform: translateX(-50%) rotate(var(--blurb-rotate));
+          transform-origin: top center;
+          background: var(--peach);
+          border-radius: 2rem;
+          padding: 0.6rem 1.25rem;
+          box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.12);
+          z-index: 10;
+
+          &::before {
+            content: "";
+            position: absolute;
+            bottom: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14px;
+            height: 14px;
+            background: var(--peach);
+            border-radius: 50%;
+            box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+          }
+
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background: var(--peach);
+            border-radius: 50%;
+          }
 
           p {
             font-family: var(--font-oooh-baby);
             font-size: 1.75rem;
             color: var(--wine);
             margin: 0;
+            text-align: center;
           }
         }
 
