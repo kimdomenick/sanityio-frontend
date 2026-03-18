@@ -12,26 +12,22 @@ import "@/app/styles/pages/home.css";
 type SanityDocument = Record<string, any>;
 
 const HOME_QUERY = `*[_type == "landingPage" && slug.current == "home"][0]`;
-const POSTS_QUERY = `*[
-  _type == "article"
-  && archive == false
-  && defined(slug.current)
-]|order(date desc)[0...12]{_id, name, slug, summary, date, archive}`;
 
-const PORTFOLIO_QUERY = `*[
-  _type == "portfolioArchive"
-  && published == true
-  && portfolioType->title == "Tech/Development"
-  && defined(slug.current)
-] | order(year desc) {
+const PORTFOLIO_ROW_QUERY = `*[_type == "portfolioRow"] | order(sortOrder asc) {
   _id,
-  title,
-  slug,
-  year,
-  shortDescription,
-  body,
-  image,
-  "technologies": portfolioCategory[]->title
+  name,
+  blurb,
+  sortOrder,
+  "portfolioItems": portfolioItems[]->{
+    _id,
+    title,
+    slug,
+    year,
+    shortDescription,
+    body,
+    image,
+    "technologies": portfolioCategory[]->title
+  }
 }`;
 
 const options = { next: { revalidate: 30 } };
@@ -43,51 +39,11 @@ const urlFor = (source: any) =>
     ? imageUrlBuilder({ projectId, dataset }).image(source)
     : null;
 
-// Hard-coded year metadata (image + text) keyed by year string
-const yearMeta: Record<string, { image: string; text: string }> = {
-  "2003": { image: "/floral-branch.svg", text: "wow, this is really old" },
-  "2005": { image: "/floral-branch.svg", text: "wow, this is really old" },
-  "2008": { image: "/floral-branch.svg", text: "wow, this is really old" },
-  "2010": { image: "/floral-branch.svg", text: "wow, this is really old" },
-  "2011": { image: "/floral-branch.svg", text: "wow, this is really old" },
-  "2012": { image: "/floral-branch.svg", text: "wow, this is really old" },
-  "2013": { image: "/floral-branch.svg", text: "wow, this is really old" },
-  "2014": { image: "/floral-branch.svg", text: "wow, this is really old" },
-  "2015": { image: "/floral-branch.svg", text: "wow, this is really old" },
-};
-
 export default async function IndexPage() {
-  const [homePage, posts, portfolioItems] = await Promise.all([
+  const [homePage, portfolioRows] = await Promise.all([
     client.fetch<SanityDocument>(HOME_QUERY, {}, options),
-    client.fetch<SanityDocument[]>(POSTS_QUERY, {}, options),
-    client.fetch<SanityDocument[]>(PORTFOLIO_QUERY, {}, options),
+    client.fetch<SanityDocument[]>(PORTFOLIO_ROW_QUERY, {}, options),
   ]);
-
-  // Map portfolio data to component format
-  const portfolioProjects = portfolioItems.map((item: any) => ({
-    title: item.title,
-    year: item.year?.toString() || "",
-    image: item.image
-      ? urlFor(item.image)?.width(400).height(300).url() || "/globe.svg"
-      : "/globe.svg",
-    description: item.shortDescription || "",
-    details: item.body ? "" : item.shortDescription || "", // Will use body in modal
-    technologies: item.technologies || [],
-    link: item.slug?.current ? `/portfolio/${item.slug.current}` : "#",
-    body: item.body || null,
-  }));
-
-  // Group projects by year (preserves desc order from query)
-  const projectsByYear = portfolioProjects.reduce(
-    (acc: Record<string, typeof portfolioProjects>, project: any) => {
-      const year = project.year || "Unknown";
-      if (!acc[year]) acc[year] = [];
-      acc[year].push(project);
-      return acc;
-    },
-    {},
-  );
-  const yearGroups = Object.entries(projectsByYear);
 
   return (
     <main className="home">
@@ -136,11 +92,9 @@ export default async function IndexPage() {
             <div className="overview-column">
               <h2 className="overview-column__title">Experience</h2>
               <p className="overview-column__content">
-                I’ve been building for the web long enough to outlive a few
-                frameworks. My work has spanned development, systems analysis,
-                technical writing, UX/UI design and collaboration, and the
-                occasional DevOps adventure. My experience helps me see the full
-                picture behind every project.
+                Building for the web long enough to outlive a few frameworks.
+                Dev, tech writing, UX/UI design, the occasional DevOps
+                adventure. I've been around.
               </p>
               <p>
                 <Link href="/about">My philosophy</Link>
@@ -163,8 +117,7 @@ export default async function IndexPage() {
               <h2 className="overview-column__title">History</h2>
               <p className="overview-column__content">There's a lot of it.</p>
               <p className="overview-column__content">
-                Each project reflects the tools, trends, and challenges of its
-                time — some of which have aged better than others.
+                Some tools have aged better than others.
               </p>
             </div>
           </div>
@@ -172,43 +125,44 @@ export default async function IndexPage() {
       </section>
 
       <section id="flip-flop" className="home__flip-flop">
-        {yearGroups.map(([year, projects], index) => (
+        {portfolioRows.map((row: any, index: number) => (
           <section
-            key={year}
-            className={`home__flip-flop__year home__flip-flop__year--${year} ${index % 2 === 0 ? "odd" : "even"}`}
+            key={row._id}
+            className={`home__flip-flop__year ${index % 2 === 0 ? "odd" : "even"}`}
           >
             <div className="container mx-auto">
-              <div
-                className={`home__flip-flop__year home__flip-flop__year--${year} title`}
-              >
-                <h3>{year}</h3>
-                {yearMeta[year] && (
-                  <>
-                    <Image
-                      src={yearMeta[year].image}
-                      alt=""
-                      width={80}
-                      height={80}
-                    />
-                    <p>{yearMeta[year].text}</p>
-                  </>
+              <div className="home__flip-flop__year title">
+                <h3>{row.name}</h3>
+                {row.blurb && (
+                  <div className="title__blurb">
+                    <p>{row.blurb}</p>
+                  </div>
                 )}
               </div>
-              <div
-                className={`home__flip-flop__year home__flip-flop__year--${year} content`}
-              >
+              <div className="home__flip-flop__year content">
                 <HorizontalScrollSection showProgress={false}>
-                  {(projects as any[]).map(
-                    (project: any, cardIndex: number) => (
+                  {(row.portfolioItems ?? []).map(
+                    (item: any, cardIndex: number) => (
                       <PortfolioCardExpanded
                         key={cardIndex}
-                        title={project.title}
-                        year={project.year}
-                        image={project.image}
-                        description={project.description}
-                        details={project.details}
-                        technologies={project.technologies}
-                        link={project.link}
+                        title={item.title}
+                        year={item.year?.toString() ?? ""}
+                        image={
+                          item.image
+                            ? (urlFor(item.image)
+                                ?.width(400)
+                                .height(300)
+                                .url() ?? "/globe.svg")
+                            : "/globe.svg"
+                        }
+                        description={item.shortDescription ?? ""}
+                        details={item.shortDescription ?? ""}
+                        technologies={item.technologies ?? []}
+                        link={
+                          item.slug?.current
+                            ? `/portfolio/${item.slug.current}`
+                            : "#"
+                        }
                       />
                     ),
                   )}

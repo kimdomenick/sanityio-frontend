@@ -30,7 +30,7 @@
 .horizontal-scroll-content {
   display: flex;
   gap: 2.5rem;
-  padding: 2rem;
+  padding: 2rem 4rem;
   height: 100%;
   min-width: max-content;
   align-items: stretch;
@@ -73,29 +73,6 @@
     position: relative;
     flex: 1;
     min-height: 0;
-  }
-
-  &__hint {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(64, 31, 24, 0.9);
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 50px;
-    font-size: 1.125rem;
-    font-weight: 600;
-    z-index: 5;
-    pointer-events: none;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);
-
-    span {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
   }
 
   &__nav {

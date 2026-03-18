@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import "@/app/styles/HorizontalScrollSection.css";
 
@@ -15,11 +15,11 @@ export default function HorizontalScrollSection({
   title,
   showProgress = true,
 }: HorizontalScrollSectionProps) {
+  const childCount = React.Children.count(children);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
-  const [showScrollHint, setShowScrollHint] = useState(true);
 
   const handleScroll = () => {
     const container = scrollContainerRef.current;
@@ -33,10 +33,6 @@ export default function HorizontalScrollSection({
     setCanScrollLeft(scrollLeft > 0);
     setCanScrollRight(scrollLeft < scrollWidth - 1);
 
-    // Hide scroll hint after user scrolls
-    if (scrollLeft > 50 && showScrollHint) {
-      setShowScrollHint(false);
-    }
   };
 
   const scroll = (direction: "left" | "right") => {
@@ -70,48 +66,31 @@ export default function HorizontalScrollSection({
       {title && <h2 className="horizontal-scroll-section__title">{title}</h2>}
 
       <div className="horizontal-scroll-section__wrapper">
-        {/* Scroll Hint */}
-        {showScrollHint && (
-          <motion.div
-            className="horizontal-scroll-section__hint"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ delay: 1, duration: 0.5 }}
-          >
-            <motion.div
-              animate={{ x: [0, 10, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
-            >
-              <span>Scroll to explore →</span>
-            </motion.div>
-          </motion.div>
-        )}
 
         {/* Left Navigation Arrow */}
-        <motion.button
-          className="horizontal-scroll-section__nav horizontal-scroll-section__nav--left"
-          onClick={() => scroll("left")}
-          disabled={!canScrollLeft}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: canScrollLeft ? 1 : 0.3 }}
-          whileHover={{ scale: canScrollLeft ? 1.1 : 1 }}
-          whileTap={{ scale: canScrollLeft ? 0.9 : 1 }}
-          aria-label="Scroll left"
-        >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+        {childCount > 1 && (
+          <motion.button
+            className="horizontal-scroll-section__nav horizontal-scroll-section__nav--left"
+            onClick={() => scroll("left")}
+            disabled={!canScrollLeft}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: canScrollLeft ? 1 : 0.3 }}
+            aria-label="Scroll left"
           >
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-        </motion.button>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </motion.button>
+        )}
 
         {/* Scrollable Content */}
         <div
@@ -122,29 +101,29 @@ export default function HorizontalScrollSection({
         </div>
 
         {/* Right Navigation Arrow */}
-        <motion.button
-          className="horizontal-scroll-section__nav horizontal-scroll-section__nav--right"
-          onClick={() => scroll("right")}
-          disabled={!canScrollRight}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: canScrollRight ? 1 : 0.3 }}
-          whileHover={{ scale: canScrollRight ? 1.1 : 1 }}
-          whileTap={{ scale: canScrollRight ? 0.9 : 1 }}
-          aria-label="Scroll right"
-        >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+        {childCount > 1 && (
+          <motion.button
+            className="horizontal-scroll-section__nav horizontal-scroll-section__nav--right"
+            onClick={() => scroll("right")}
+            disabled={!canScrollRight}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: canScrollRight ? 1 : 0.3 }}
+            aria-label="Scroll right"
           >
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </motion.button>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </motion.button>
+        )}
       </div>
 
       {/* Progress Indicator */}

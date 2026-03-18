@@ -26,6 +26,7 @@
   --font-tenor: var(--font-tenor-sans);
   --font-pacifico: var(--font-pacifico);
   --font-abril-fatface: var(--font-abril-fatface);
+  --font-oooh-baby: var(--font-oooh-baby);
 }
 
 @media (prefers-color-scheme: dark) {

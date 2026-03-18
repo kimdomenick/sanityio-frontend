@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Tenor_Sans, Pacifico, Abril_Fatface } from "next/font/google";
+import { Geist, Geist_Mono, Tenor_Sans, Pacifico, Abril_Fatface, Oooh_Baby } from "next/font/google";
 import "./styles/globals.css";
 import "./styles/typography.css";
 import Header from "@/components/Header";
@@ -33,6 +33,12 @@ const abrilFatface = Abril_Fatface({
   variable: "--font-abril-fatface",
 });
 
+const ooohBaby = Oooh_Baby({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-oooh-baby",
+});
+
 export const metadata: Metadata = {
   title: "Rose Colored Code",
   description:
@@ -47,7 +53,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${tenorSans.variable} ${pacifico.variable} ${abrilFatface.variable} antialiased flex flex-col min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} ${tenorSans.variable} ${pacifico.variable} ${abrilFatface.variable} ${ooohBaby.variable} antialiased flex flex-col min-h-screen`}
       >
         <Header />
         <div className="main-content">{children}</div>
