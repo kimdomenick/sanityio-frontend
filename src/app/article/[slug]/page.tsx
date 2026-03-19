@@ -23,11 +23,22 @@ export default async function PostPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  const { slug } = await params;
   const post = await client.fetch<SanityDocument>(
     POST_QUERY,
-    await params,
+    { slug: `/article/${slug}` },
     options
   );
+
+  if (!post) {
+    return (
+      <main className="container mx-auto min-h-screen max-w-3xl p-8">
+        <Link href="/archive" className="hover:underline">← Back to articles</Link>
+        <h1 className="text-4xl font-bold mt-8">Article not found</h1>
+      </main>
+    );
+  }
+
   const postImageUrl = post.image
     ? urlFor(post.image)?.width(550).height(310).url()
     : null;

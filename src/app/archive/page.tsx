@@ -61,7 +61,7 @@ export default async function ArchivePage() {
         <ul className="flex flex-col gap-y-4">
           {posts.map((post) => (
             <li className="hover:underline" key={post._id}>
-              <Link href={`/article/${post.slug.current}`}>
+              <Link href={post.slug.current}>
                 <h3 className="text-xl font-semibold">{post.name}</h3>
                 <p className="text-gray-600">{new Date(post.date).toLocaleDateString()}</p>
                 {post.summary && (
