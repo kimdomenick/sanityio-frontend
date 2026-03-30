@@ -17,6 +17,7 @@ const PORTFOLIO_ROW_QUERY = `*[_type == "portfolioRow"] | order(sortOrder asc) {
   _id,
   name,
   blurb,
+  description,
   sortOrder,
   "portfolioItems": portfolioItems[]->{
     _id,
@@ -48,14 +49,9 @@ export default async function IndexPage() {
   return (
     <main className="home">
       <section id="hello" className="home__hello">
-        <p>
-          Building, analyzing, documenting, and improving the web for more than
-          25 years.
-        </p>
+        <h1>Kimberly Rosenberry</h1>
         <p className="my-name">
-          Kimberly Rosenberry
-          <br />
-          Frontend developer • systems analyst • technical writer • UX
+          Frontend Developer • Systems Analyst • Technical Writer • UX
           collaborator
         </p>
       </section>
@@ -92,9 +88,9 @@ export default async function IndexPage() {
             <div className="overview-column">
               <h2 className="overview-column__title">Experience</h2>
               <p className="overview-column__content">
-                Building for the web long enough to outlive a few frameworks.
-                Dev, tech writing, UX/UI design, the occasional DevOps
-                adventure. I've been around.
+                Building the web long enough to outlive a few frameworks. Dev,
+                tech writing, UX/UI design, the occasional DevOps adventure.
+                I've been around.
               </p>
               <p>
                 <Link href="/about">My philosophy</Link>
@@ -115,30 +111,41 @@ export default async function IndexPage() {
             {/* Column: History */}
             <div className="overview-column">
               <h2 className="overview-column__title">History</h2>
-              <p className="overview-column__content">There's a lot of it.</p>
               <p className="overview-column__content">
-                Some tools have aged better than others.
+                That's what this site is all about. There's a lot of it.
               </p>
+              <p className="overview-column__content">Keep scrolling.</p>
             </div>
           </div>
         </div>
       </section>
 
       <section id="flip-flop" className="home__flip-flop">
+        <div className="home__flip-flop__title container mx-auto py-12">
+          <h2>Every row is a journey. Every journey is different.</h2>
+        </div>
         {portfolioRows.map((row: any, index: number) => (
           <section
             key={row._id}
             className={`home__flip-flop__year ${index % 2 === 0 ? "odd" : "even"}`}
           >
             <div className="container mx-auto">
-              <div className="home__flip-flop__year title">
+              <div className="home__flip-flop__year__title">
                 <h3>{row.name}</h3>
+
+                <div className="home__flip-flop__year__title__description">
+                  <PortableText
+                    value={row.description}
+                    components={portableTextComponents}
+                  />
+                </div>
                 {row.blurb && (
-                  <div className="title__blurb">
+                  <div className="home__flip-flop__year__title__blurb">
                     <p>{row.blurb}</p>
                   </div>
                 )}
               </div>
+
               <div className="home__flip-flop__year content">
                 <HorizontalScrollSection showProgress={false}>
                   {(row.portfolioItems ?? []).map(
