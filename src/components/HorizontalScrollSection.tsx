@@ -39,7 +39,7 @@ export default function HorizontalScrollSection({
     const container = scrollContainerRef.current;
     if (!container) return;
 
-    const scrollAmount = container.clientWidth * 0.8; // Scroll 80% of viewport width
+    const scrollAmount = container.clientWidth;
     const newScrollLeft =
       direction === "left"
         ? container.scrollLeft - scrollAmount

@@ -120,10 +120,23 @@
       .content {
         flex: 1;
         min-width: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-block: 2rem;
+
+        .card-stepper {
+          width: 100%;
+          max-width: 340px;
+        }
       }
 
       &.odd {
         background-color: var(--tan);
+
+        .portfolioRowCard {
+          background: var(--tan);
+        }
       }
 
       /* Cycle through 4 rotation values */

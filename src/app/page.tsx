@@ -5,7 +5,7 @@ import imageUrlBuilder from "@sanity/image-url";
 import { client } from "@/sanity/client";
 import { portableTextComponents } from "@/components/PortableTextComponents";
 import PortfolioRowCardExpanded from "@/components/PortfolioRowCardExpanded";
-import HorizontalScrollSection from "@/components/HorizontalScrollSection";
+import CardStepper from "@/components/CardStepper";
 import "@/app/styles/pages/home.css";
 
 // Type for Sanity documents
@@ -167,7 +167,7 @@ export default async function IndexPage() {
                 </div>
 
                 <div className="home__flip-flop__year content">
-                  <HorizontalScrollSection showProgress={false}>
+                  <CardStepper>
                     {(row.portfolioItems ?? []).map(
                       (item: any, cardIndex: number) => (
                         <PortfolioRowCardExpanded
@@ -192,7 +192,7 @@ export default async function IndexPage() {
                         />
                       ),
                     )}
-                  </HorizontalScrollSection>
+                  </CardStepper>
                 </div>
               </div>
             </section>

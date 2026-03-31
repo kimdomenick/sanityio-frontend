@@ -64,6 +64,7 @@ export default function PortfolioRowCardExpanded({
             >
               View Details
             </button>
+
             {year && <span className="portfolioRowCard__year">{year}</span>}
           </div>
         </div>
