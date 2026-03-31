@@ -45,10 +45,7 @@ export default function PortfolioRowCardExpanded({
           />
         </div>
         <div className="portfolioRowCard__content">
-          <div className="portfolioRowCard__header">
-            <h4 className="portfolioRowCard__title">{title}</h4>
-            {year && <span className="portfolioRowCard__year">{year}</span>}
-          </div>
+          <h4 className="portfolioRowCard__title">{title}</h4>
           <p className="portfolioRowCard__description">{description}</p>
           {technologies.length > 0 && (
             <div className="portfolioRowCard__technologies">
@@ -59,13 +56,16 @@ export default function PortfolioRowCardExpanded({
               ))}
             </div>
           )}
-          <button
-            className="portfolioRowCard__button"
-            type="button"
-            onClick={() => setIsExpanded(true)}
-          >
-            View Details
-          </button>
+          <div className="portfolioRowCard__footer">
+            <button
+              className="portfolioRowCard__button"
+              type="button"
+              onClick={() => setIsExpanded(true)}
+            >
+              View Details
+            </button>
+            {year && <span className="portfolioRowCard__year">{year}</span>}
+          </div>
         </div>
       </motion.article>
 

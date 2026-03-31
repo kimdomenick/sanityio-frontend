@@ -42,11 +42,6 @@ body {
   font-family: var(--font-tenor-sans), Arial, Helvetica, sans-serif;
 }
 
-h2 {
-  font-family: var(--font-abril-fatface);
-  font-size: 2.5rem;
-  font-weight: 400;
-}
 
 /* Accessible link styles with hot pink accent */
 a {

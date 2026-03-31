@@ -8,10 +8,7 @@
     text-align: center;
 
     h1 {
-      font-family: var(--font-abril-fatface);
       font-size: 4rem;
-      font-weight: 400;
-      color: var(--wine);
 
       &::after {
         content: "";

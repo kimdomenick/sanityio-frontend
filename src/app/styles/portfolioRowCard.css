@@ -38,13 +38,9 @@
   }
 
   &__title {
-    font-family: var(--font-tenor-sans);
-    font-size: 1.5rem;
     margin: 0;
-    color: var(--wine);
     border-bottom: 2px solid var(--lime);
-    padding-bottom: 0.5rem;
-    font-weight: 400;
+    padding-block-end: 0.5rem;
   }
 
   &__description {
@@ -57,7 +53,6 @@
 
   &__button {
     font-family: var(--font-tenor-sans);
-    align-self: flex-start;
     padding: 0.75rem 1.5rem;
     background: var(--watermelon);
     color: white;
@@ -80,11 +75,12 @@
     }
   }
 
-  &__header {
+  &__footer {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
     gap: 1rem;
+    margin-top: auto;
   }
 
   &__year {

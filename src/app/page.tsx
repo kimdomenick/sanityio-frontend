@@ -122,7 +122,9 @@ export default async function IndexPage() {
 
       <section id="flip-flop" className="home__flip-flop">
         <div className="home__flip-flop__title container mx-auto py-12">
-          <h2>Every row is a journey. Every journey is different.</h2>
+          <h2 className="abril">
+            Every row is a journey. Every journey is different.
+          </h2>
         </div>
         {portfolioRows.map((row: any, index: number) => {
           const rowTechnologies = [
