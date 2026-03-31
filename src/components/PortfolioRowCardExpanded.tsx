@@ -46,7 +46,7 @@ export default function PortfolioRowCardExpanded({
         </div>
         <div className="portfolioRowCard__content">
           <div className="portfolioRowCard__header">
-            <h3 className="portfolioRowCard__title">{title}</h3>
+            <h4 className="portfolioRowCard__title">{title}</h4>
             {year && <span className="portfolioRowCard__year">{year}</span>}
           </div>
           <p className="portfolioRowCard__description">{description}</p>
@@ -127,7 +127,10 @@ export default function PortfolioRowCardExpanded({
                     <h4>Technologies Used</h4>
                     <div className="portfolioRowCard__tech-list">
                       {technologies.map((tech, index) => (
-                        <span key={index} className="portfolioRowCard__tech-tag">
+                        <span
+                          key={index}
+                          className="portfolioRowCard__tech-tag"
+                        >
                           {tech}
                         </span>
                       ))}

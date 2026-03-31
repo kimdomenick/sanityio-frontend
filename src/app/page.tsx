@@ -4,7 +4,7 @@ import { PortableText } from "@portabletext/react";
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "@/sanity/client";
 import { portableTextComponents } from "@/components/PortableTextComponents";
-import PortfolioCardExpanded from "@/components/PortfolioCardExpanded";
+import PortfolioRowCardExpanded from "@/components/PortfolioRowCardExpanded";
 import HorizontalScrollSection from "@/components/HorizontalScrollSection";
 import "@/app/styles/pages/home.css";
 
@@ -124,60 +124,78 @@ export default async function IndexPage() {
         <div className="home__flip-flop__title container mx-auto py-12">
           <h2>Every row is a journey. Every journey is different.</h2>
         </div>
-        {portfolioRows.map((row: any, index: number) => (
-          <section
-            key={row._id}
-            className={`home__flip-flop__year ${index % 2 === 0 ? "odd" : "even"}`}
-          >
-            <div className="container mx-auto">
-              <div className="home__flip-flop__year__title">
-                <h3>{row.name}</h3>
+        {portfolioRows.map((row: any, index: number) => {
+          const rowTechnologies = [
+            ...new Set<string>(
+              (row.portfolioItems ?? []).flatMap(
+                (item: any) => item.technologies ?? [],
+              ),
+            ),
+          ];
 
-                <div className="home__flip-flop__year__title__description">
-                  <PortableText
-                    value={row.description}
-                    components={portableTextComponents}
-                  />
-                </div>
-                {row.blurb && (
-                  <div className="home__flip-flop__year__title__blurb">
-                    <p>{row.blurb}</p>
+          return (
+            <section
+              key={row._id}
+              className={`home__flip-flop__year ${index % 2 === 0 ? "odd" : "even"}`}
+            >
+              <div className="container mx-auto">
+                <div className="home__flip-flop__year__title">
+                  <h3>{row.name}</h3>
+
+                  <div className="home__flip-flop__year__title__description">
+                    <PortableText
+                      value={row.description}
+                      components={portableTextComponents}
+                    />
                   </div>
-                )}
-              </div>
-
-              <div className="home__flip-flop__year content">
-                <HorizontalScrollSection showProgress={false}>
-                  {(row.portfolioItems ?? []).map(
-                    (item: any, cardIndex: number) => (
-                      <PortfolioCardExpanded
-                        key={cardIndex}
-                        title={item.title}
-                        year={item.year?.toString() ?? ""}
-                        image={
-                          item.image
-                            ? (urlFor(item.image)
-                                ?.width(400)
-                                .height(300)
-                                .url() ?? "/globe.svg")
-                            : "/globe.svg"
-                        }
-                        description={item.shortDescription ?? ""}
-                        details={item.shortDescription ?? ""}
-                        technologies={item.technologies ?? []}
-                        link={
-                          item.slug?.current
-                            ? `/portfolio/${item.slug.current}`
-                            : "#"
-                        }
-                      />
-                    ),
+                  {row.blurb && (
+                    <div className="home__flip-flop__year__title__blurb">
+                      <p>{row.blurb}</p>
+                    </div>
                   )}
-                </HorizontalScrollSection>
+                  {rowTechnologies.length > 0 && (
+                    <div className="home__flip-flop__year__title__technologies">
+                      {rowTechnologies.map((tech, i) => (
+                        <span key={i} className="portfolioRowCard__tech-tag">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="home__flip-flop__year content">
+                  <HorizontalScrollSection showProgress={false}>
+                    {(row.portfolioItems ?? []).map(
+                      (item: any, cardIndex: number) => (
+                        <PortfolioRowCardExpanded
+                          key={cardIndex}
+                          title={item.title}
+                          year={item.year?.toString() ?? ""}
+                          image={
+                            item.image
+                              ? (urlFor(item.image)
+                                  ?.width(400)
+                                  .height(300)
+                                  .url() ?? "/globe.svg")
+                              : "/globe.svg"
+                          }
+                          description={item.shortDescription ?? ""}
+                          details={item.shortDescription ?? ""}
+                          link={
+                            item.slug?.current
+                              ? `/portfolio/${item.slug.current}`
+                              : "#"
+                          }
+                        />
+                      ),
+                    )}
+                  </HorizontalScrollSection>
+                </div>
               </div>
-            </div>
-          </section>
-        ))}
+            </section>
+          );
+        })}
       </section>
 
       {/* <section id="articles" className="home__articles max-w-3xl mx-auto">

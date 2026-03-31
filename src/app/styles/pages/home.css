@@ -203,6 +203,14 @@
             text-align: center;
           }
         }
+
+        &__technologies {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          justify-content: center;
+          margin-block-start: 2.5rem;
+        }
       }
     }
   }

@@ -23,7 +23,7 @@ export default function PortfolioRowCard({
         />
       </div>
       <div className="portfolioRowCard__content">
-        <h3 className="portfolioRowCard__title">{title}</h3>
+        <h4 className="portfolioRowCard__title">{title}</h4>
         <p className="portfolioRowCard__description">{description}</p>
         <button className="portfolioRowCard__button" type="button">
           View Details
