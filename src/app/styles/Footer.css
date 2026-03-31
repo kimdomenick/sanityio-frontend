@@ -4,6 +4,12 @@
   height: 20vh;
   min-height: 160px;
 
+  .not-nav {
+    background-color: rgba(255, 255, 255, 0.467);
+    text-align: center;
+    padding: 0.5rem;
+  }
+
   &__bg--2 {
     height: 400px;
     background-color: var(--watermelon);

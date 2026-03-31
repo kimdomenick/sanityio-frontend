@@ -17,7 +17,7 @@ export default function Footer() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 h-full">
               {/* Column 1 - Empty for now */}
               <div className="flex flex-col">
-                <p>
+                <p className="not-nav">
                   <strong>A lot of people would put navigation here</strong>
                 </p>
                 <Image
