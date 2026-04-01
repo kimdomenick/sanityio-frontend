@@ -109,6 +109,10 @@
     }
 
     &__year {
+      &.odd {
+        background-color: var(--tan);
+      }
+
       .container {
         display: flex;
         align-items: center;
@@ -129,28 +133,6 @@
           width: 100%;
           max-width: 340px;
         }
-      }
-
-      &.odd {
-        background-color: var(--tan);
-
-        .portfolioRowCard {
-          background: var(--tan);
-        }
-      }
-
-      /* Cycle through 4 rotation values */
-      &:nth-child(4n + 1) {
-        --blurb-rotate: -8deg;
-      }
-      &:nth-child(4n + 2) {
-        --blurb-rotate: 14deg;
-      }
-      &:nth-child(4n + 3) {
-        --blurb-rotate: -5deg;
-      }
-      &:nth-child(4n + 4) {
-        --blurb-rotate: 11deg;
       }
 
       &__title {
