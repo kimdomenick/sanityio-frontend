@@ -52,7 +52,7 @@ export default async function IndexPage() {
         <h1>Kimberly Rosenberry</h1>
         <p className="my-name">
           Frontend Developer • Systems Analyst • Technical Writer • UX
-          collaborator
+          Collaborator
         </p>
       </section>
       <section id="overview" className="home__overview">
@@ -111,10 +111,8 @@ export default async function IndexPage() {
             {/* Column: History */}
             <div className="overview-column">
               <h2 className="overview-column__title">History</h2>
-              <p className="overview-column__content">
-                That's what this site is all about. There's a lot of it.
-              </p>
-              <p className="overview-column__content">Keep scrolling.</p>
+              <p className="overview-column__content">25+ years of it.</p>
+              <p className="overview-column__content">Scroll, please.</p>
             </div>
           </div>
         </div>
