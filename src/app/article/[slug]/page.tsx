@@ -27,13 +27,15 @@ export default async function PostPage({
   const post = await client.fetch<SanityDocument>(
     POST_QUERY,
     { slug: `/article/${slug}` },
-    options
+    options,
   );
 
   if (!post) {
     return (
       <main className="container mx-auto min-h-screen max-w-3xl p-8">
-        <Link href="/archive" className="hover:underline">← Back to articles</Link>
+        <Link href="/archive" className="hover:underline">
+          ← Back to articles
+        </Link>
         <h1 className="text-4xl font-bold mt-8">Article not found</h1>
       </main>
     );
@@ -45,7 +47,7 @@ export default async function PostPage({
 
   return (
     <main className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-4">
-      <Link href="/" className="hover:underline">
+      <Link href="/archive" className="hover:underline">
         ← Back to posts
       </Link>
       {postImageUrl && (
@@ -59,8 +61,12 @@ export default async function PostPage({
       )}
       <h1 className="text-4xl font-bold mb-8">{post.name}</h1>
       <div>
-        <p className="mb-4 text-gray-600">Published: {new Date(post.date).toLocaleDateString()}</p>
-        {Array.isArray(post.body) && <PortableText value={post.body} components={portableTextComponents} />}
+        <p className="mb-4 text-gray-600">
+          Published: {new Date(post.date).toLocaleDateString()}
+        </p>
+        {Array.isArray(post.body) && (
+          <PortableText value={post.body} components={portableTextComponents} />
+        )}
       </div>
     </main>
   );

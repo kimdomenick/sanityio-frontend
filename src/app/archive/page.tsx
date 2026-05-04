@@ -18,7 +18,7 @@ const options = { next: { revalidate: 30 } };
 export default async function ArchivePage() {
   const [archivePage, posts] = await Promise.all([
     client.fetch<SanityDocument>(ARCHIVE_QUERY, {}, options),
-    client.fetch<SanityDocument[]>(ALL_POSTS_QUERY, {}, options)
+    client.fetch<SanityDocument[]>(ALL_POSTS_QUERY, {}, options),
   ]);
 
   if (!archivePage) {
@@ -43,12 +43,19 @@ export default async function ArchivePage() {
           {(() => {
             try {
               // Ensure body is properly formatted for PortableText
-              const bodyContent = Array.isArray(archivePage.body) ? archivePage.body : [];
+              const bodyContent = Array.isArray(archivePage.body)
+                ? archivePage.body
+                : [];
               if (bodyContent.length === 0) return null;
 
-              return <PortableText value={bodyContent} components={portableTextComponents} />;
+              return (
+                <PortableText
+                  value={bodyContent}
+                  components={portableTextComponents}
+                />
+              );
             } catch (error) {
-              console.error('PortableText error on archive page:', error);
+              console.error("PortableText error on archive page:", error);
               // Fallback: don't render the body content if there's an error
               return null;
             }
@@ -60,20 +67,25 @@ export default async function ArchivePage() {
         <h2 className="text-2xl font-bold mb-6">All Articles</h2>
         <ul className="flex flex-col gap-y-4">
           {posts.map((post) => (
-            <li className="hover:underline" key={post._id}>
+            <li key={post._id}>
               <Link href={post.slug.current}>
                 <h3 className="text-xl font-semibold">{post.name}</h3>
-                <p className="text-gray-600">{new Date(post.date).toLocaleDateString()}</p>
-                {post.summary && (
-                  <div className="text-sm mt-1">
-                    {Array.isArray(post.summary) ? (
-                      <PortableText value={post.summary} components={portableTextComponents} />
-                    ) : (
-                      <p>{post.summary}</p>
-                    )}
-                  </div>
-                )}
               </Link>
+              <p className="text-gray-600">
+                {new Date(post.date).toLocaleDateString()}
+              </p>
+              {post.summary && (
+                <div className="text-sm mt-1">
+                  {Array.isArray(post.summary) ? (
+                    <PortableText
+                      value={post.summary}
+                      components={portableTextComponents}
+                    />
+                  ) : (
+                    <p>{post.summary}</p>
+                  )}
+                </div>
+              )}
             </li>
           ))}
         </ul>
