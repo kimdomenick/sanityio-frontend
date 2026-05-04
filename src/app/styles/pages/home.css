@@ -168,13 +168,11 @@
         }
 
         &__blurb {
-          p {
-            font-family: var(--font-oooh-baby);
-            font-size: 1.75rem;
-            color: var(--wine);
-            margin: 0;
-            text-align: center;
-          }
+          font-family: var(--font-oooh-baby);
+          font-size: 1.75rem;
+          color: var(--wine);
+          margin: 0;
+          text-align: center;
         }
 
         &__technologies {
@@ -183,6 +181,9 @@
           gap: 0.5rem;
           justify-content: center;
           margin-block-start: 2.5rem;
+          list-style: none;
+          padding: 0;
+          margin-inline: 0;
         }
       }
     }

@@ -150,18 +150,16 @@ export default async function IndexPage() {
                     />
                   </div>
                   {row.blurb && (
-                    <div className="home__flip-flop__year__title__blurb">
-                      <p>{row.blurb}</p>
-                    </div>
+                    <p className="home__flip-flop__year__title__blurb">{row.blurb}</p>
                   )}
                   {rowTechnologies.length > 0 && (
-                    <div className="home__flip-flop__year__title__technologies">
+                    <ul className="home__flip-flop__year__title__technologies">
                       {rowTechnologies.map((tech, i) => (
-                        <span key={i} className="portfolioRowCard__tech-tag">
+                        <li key={i} className="portfolioRowCard__tech-tag">
                           {tech}
-                        </span>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   )}
                 </div>
 

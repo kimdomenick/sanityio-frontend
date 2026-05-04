@@ -20,4 +20,13 @@
     max-width: 150px;
     height: auto;
   }
+
+  &__logo-link {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }

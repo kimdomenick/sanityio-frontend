@@ -40,10 +40,10 @@ export default function Footer() {
             </div>
           </div>
           <div className="site-footer__copyright">
-            <div className="container mx-auto">
+            <p className="container mx-auto">
               &copy; Copyright 2026. All rights reserved. As if you're gonna
               steal this shit.
-            </div>
+            </p>
           </div>
         </div>
       </div>

@@ -94,6 +94,9 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
   &__tech-tag {
@@ -259,6 +262,9 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
   &__modal-link {

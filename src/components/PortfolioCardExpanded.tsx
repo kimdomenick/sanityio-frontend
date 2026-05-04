@@ -86,17 +86,17 @@ export default function PortfolioCardExpanded({
         <div className="portfolioCard__content">
           <div className="portfolioCard__header">
             <h3 className="portfolioCard__title">{title}</h3>
-            {year && <span className="portfolioCard__year">{year}</span>}
+            {year && <time className="portfolioCard__year" dateTime={year}>{year}</time>}
           </div>
           <p className="portfolioCard__description">{description}</p>
           {technologies.length > 0 && (
-            <div className="portfolioCard__technologies">
+            <ul className="portfolioCard__technologies">
               {technologies.map((tech, index) => (
-                <span key={index} className="portfolioCard__tech-tag">
+                <li key={index} className="portfolioCard__tech-tag">
                   {tech}
-                </span>
+                </li>
               ))}
-            </div>
+            </ul>
           )}
           <button
             ref={triggerRef}
@@ -150,7 +150,7 @@ export default function PortfolioCardExpanded({
                     {title}
                   </h2>
                   {year && (
-                    <span className="portfolioCard__modal-year">{year}</span>
+                    <time className="portfolioCard__modal-year" dateTime={year}>{year}</time>
                   )}
                 </div>
 
@@ -158,21 +158,21 @@ export default function PortfolioCardExpanded({
 
                 {details && (
                   <div className="portfolioCard__modal-details">
-                    <h4>Project Details</h4>
+                    <h3>Project Details</h3>
                     <p>{details}</p>
                   </div>
                 )}
 
                 {technologies.length > 0 && (
                   <div className="portfolioCard__modal-technologies">
-                    <h4>Technologies Used</h4>
-                    <div className="portfolioCard__tech-list">
+                    <h3>Technologies Used</h3>
+                    <ul className="portfolioCard__tech-list">
                       {technologies.map((tech, index) => (
-                        <span key={index} className="portfolioCard__tech-tag">
+                        <li key={index} className="portfolioCard__tech-tag">
                           {tech}
-                        </span>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
                 )}
 

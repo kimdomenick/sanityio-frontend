@@ -145,18 +145,18 @@ export default async function PortfolioRowPage({
                     <div className="portfolioRowPage__item-header">
                       <h2 className="portfolioRowPage__item-title">{item.title}</h2>
                       {item.year && (
-                        <span className="portfolioRowPage__item-year">{item.year}</span>
+                        <time className="portfolioRowPage__item-year" dateTime={String(item.year)}>{item.year}</time>
                       )}
                     </div>
                     {item.shortDescription && (
                       <p className="portfolioRowPage__item-description">{item.shortDescription}</p>
                     )}
                     {technologies.length > 0 && (
-                      <div className="portfolioRowPage__item-technologies">
+                      <ul className="portfolioRowPage__item-technologies">
                         {technologies.map((tech, i) => (
-                          <span key={i} className="portfolioRowCard__tech-tag">{tech}</span>
+                          <li key={i} className="portfolioRowCard__tech-tag">{tech}</li>
                         ))}
-                      </div>
+                      </ul>
                     )}
                     {Array.isArray(item.body) && item.body.length > 0 && (
                       <div className="portfolioRowPage__item-body">

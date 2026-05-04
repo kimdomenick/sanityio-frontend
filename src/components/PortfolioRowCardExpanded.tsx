@@ -95,13 +95,13 @@ export default function PortfolioRowCardExpanded({
           <h4 className="portfolioRowCard__title">{title}</h4>
           <p className="portfolioRowCard__description">{description}</p>
           {technologies.length > 0 && (
-            <div className="portfolioRowCard__technologies">
+            <ul className="portfolioRowCard__technologies">
               {technologies.map((tech, index) => (
-                <span key={index} className="portfolioRowCard__tech-tag">
+                <li key={index} className="portfolioRowCard__tech-tag">
                   {tech}
-                </span>
+                </li>
               ))}
-            </div>
+            </ul>
           )}
           <div className="portfolioRowCard__footer">
             {href ? (
@@ -119,7 +119,7 @@ export default function PortfolioRowCardExpanded({
                 View Details
               </button>
             )}
-            {year && <span className="portfolioRowCard__year">{year}</span>}
+            {year && <time className="portfolioRowCard__year" dateTime={year}>{year}</time>}
           </div>
         </div>
       </motion.article>
@@ -164,7 +164,7 @@ export default function PortfolioRowCardExpanded({
                     {title}
                   </h2>
                   {year && (
-                    <span className="portfolioRowCard__modal-year">{year}</span>
+                    <time className="portfolioRowCard__modal-year" dateTime={year}>{year}</time>
                   )}
                 </div>
 
@@ -174,21 +174,21 @@ export default function PortfolioRowCardExpanded({
 
                 {details && (
                   <div className="portfolioRowCard__modal-details">
-                    <h4>Project Details</h4>
+                    <h3>Project Details</h3>
                     <p>{details}</p>
                   </div>
                 )}
 
                 {technologies.length > 0 && (
                   <div className="portfolioRowCard__modal-technologies">
-                    <h4>Technologies Used</h4>
-                    <div className="portfolioRowCard__tech-list">
+                    <h3>Technologies Used</h3>
+                    <ul className="portfolioRowCard__tech-list">
                       {technologies.map((tech, index) => (
-                        <span key={index} className="portfolioRowCard__tech-tag">
+                        <li key={index} className="portfolioRowCard__tech-tag">
                           {tech}
-                        </span>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
                 )}
 

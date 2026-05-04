@@ -140,9 +140,9 @@ export default function HorizontalScrollSection({
               transition={{ duration: 0.1 }}
             />
           </div>
-          <div className="horizontal-scroll-section__progress-text">
+          <p className="horizontal-scroll-section__progress-text">
             Scroll to explore {Math.round(scrollProgress)}% viewed
-          </div>
+          </p>
         </div>
       )}
     </div>
