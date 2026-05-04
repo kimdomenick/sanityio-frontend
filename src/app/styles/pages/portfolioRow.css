@@ -143,38 +143,6 @@
       padding-top: 1rem;
     }
 
-    &-status {
-      display: inline-block;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      padding: 0.3rem 0.75rem;
-      border-radius: 2px;
-      font-family: var(--font-tenor-sans);
-      font-weight: 600;
-      align-self: flex-start;
-      margin-top: auto;
-
-      &--live {
-        background: #d4edda;
-        color: #155724;
-      }
-
-      &--mockup {
-        background: #cce5ff;
-        color: #004085;
-      }
-
-      &--archived {
-        background: #f8d7da;
-        color: #721c24;
-      }
-
-      &--development {
-        background: #fff3cd;
-        color: #856404;
-      }
-    }
   }
 
   &__empty {

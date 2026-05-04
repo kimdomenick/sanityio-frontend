@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { client } from "@/sanity/client";
 import { portableTextComponents } from "@/components/PortableTextComponents";
+import GalleryModal, { type GalleryImage } from "@/components/GalleryModal";
 import "@/app/styles/pages/portfolioRow.css";
 
 type SanityDocument = Record<string, any>;
@@ -26,7 +27,10 @@ const ROW_QUERY = `*[
     shortDescription,
     body,
     image,
-    siteStatus,
+    gallery[]{
+      asset,
+      alt
+    },
     "technologies": portfolioCategory[]->title
   }
 }`;
@@ -94,7 +98,31 @@ export default async function PortfolioRowPage({
               const imageUrl = item.image
                 ? (urlFor(item.image as SanityImageSource)?.width(600).height(450).url() ?? "/globe.svg")
                 : "/globe.svg";
+
               const technologies: string[] = item.technologies ?? [];
+
+              const rawGallery: GalleryImage[] = (item.gallery ?? [])
+                .map((img: any) => ({
+                  url: urlFor(img as SanityImageSource)?.width(1200).height(900).url() ?? "",
+                  thumbUrl: urlFor(img as SanityImageSource)?.width(200).height(150).url() ?? "",
+                  alt: img.alt ?? item.title,
+                }))
+                .filter((img: GalleryImage) => img.url !== "");
+
+              const featuredAsGalleryImage: GalleryImage | null = item.image
+                ? {
+                    url: urlFor(item.image as SanityImageSource)?.width(1200).height(900).url() ?? "",
+                    thumbUrl: urlFor(item.image as SanityImageSource)?.width(200).height(150).url() ?? "",
+                    alt: item.image.alt ?? item.title,
+                  }
+                : null;
+
+              const galleryImages: GalleryImage[] = rawGallery.length > 0
+                ? [
+                    ...(featuredAsGalleryImage?.url ? [featuredAsGalleryImage] : []),
+                    ...rawGallery,
+                  ]
+                : [];
 
               return (
                 <article key={item._id} className="portfolioRowPage__item">
@@ -128,11 +156,7 @@ export default async function PortfolioRowPage({
                         <PortableText value={item.body} components={portableTextComponents} />
                       </div>
                     )}
-                    {item.siteStatus && (
-                      <span className={`portfolioRowPage__item-status portfolioRowPage__item-status--${item.siteStatus}`}>
-                        {item.siteStatus}
-                      </span>
-                    )}
+                    <GalleryModal images={galleryImages} title={item.title} />
                   </div>
                 </article>
               );
