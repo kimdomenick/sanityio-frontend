@@ -11,7 +11,7 @@ type SanityDocument = Record<string, any>;
 
 const ROW_QUERY = `*[
   _type == "portfolioRow"
-  && _id == $id
+  && slug.current == $slug
   && !(_id in path("drafts.**"))
 ][0] {
   _id,
@@ -31,7 +31,11 @@ const ROW_QUERY = `*[
   }
 }`;
 
-const ALL_ROWS_QUERY = `*[_type == "portfolioRow" && !(_id in path("drafts.**"))]{ _id }`;
+const ALL_ROWS_QUERY = `*[
+  _type == "portfolioRow"
+  && defined(slug.current)
+  && !(_id in path("drafts.**"))
+]{ "slug": slug.current }`;
 
 const { projectId, dataset } = client.config();
 const urlFor = (source: SanityImageSource) =>
@@ -43,16 +47,16 @@ const options = { next: { revalidate: 30 } };
 
 export async function generateStaticParams() {
   const rows = await client.fetch<SanityDocument[]>(ALL_ROWS_QUERY);
-  return rows.map((row) => ({ id: row._id }));
+  return rows.map((row) => ({ slug: row.slug }));
 }
 
 export default async function PortfolioRowPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { id } = await params;
-  const row = await client.fetch<SanityDocument>(ROW_QUERY, { id }, options);
+  const { slug } = await params;
+  const row = await client.fetch<SanityDocument>(ROW_QUERY, { slug }, options);
 
   if (!row) {
     return (

@@ -16,6 +16,7 @@ const HOME_QUERY = `*[_type == "landingPage" && slug.current == "home"][0]`;
 const PORTFOLIO_ROW_QUERY = `*[_type == "portfolioRow"] | order(sortOrder asc) {
   _id,
   name,
+  slug,
   blurb,
   description,
   sortOrder,
@@ -187,7 +188,7 @@ export default async function IndexPage() {
                               ? `/portfolio/${item.slug.current}`
                               : "#"
                           }
-                          href={`/portfolio-row/${row._id}`}
+                          href={row.slug?.current ? `/portfolio-row/${row.slug.current}` : undefined}
                         />
                       ),
                     )}
