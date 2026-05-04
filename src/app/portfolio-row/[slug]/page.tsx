@@ -74,7 +74,14 @@ export default async function PortfolioRowPage({
   return (
     <main className="portfolioRowPage">
       <div className="portfolioRowPage__hero">
-        <div className="container mx-auto px-8">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/sign.svg"
+          alt=""
+          aria-hidden="true"
+          className="portfolioRowPage__hero-sign"
+        />
+        <div className="portfolioRowPage__hero-content container mx-auto px-8">
           <Link href="/" className="portfolioRowPage__back">← Back to home</Link>
           <h1 className="portfolioRowPage__title">{row.name}</h1>
           {Array.isArray(row.description) && row.description.length > 0 && (
