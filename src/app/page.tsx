@@ -187,6 +187,7 @@ export default async function IndexPage() {
                               ? `/portfolio/${item.slug.current}`
                               : "#"
                           }
+                          href={`/portfolio-row/${row._id}`}
                         />
                       ),
                     )}

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import "../app/styles/portfolioRowCard.css";
@@ -13,6 +14,7 @@ interface PortfolioRowCardExpandedProps {
   technologies?: string[];
   details?: string;
   link?: string;
+  href?: string;
 }
 
 export default function PortfolioRowCardExpanded({
@@ -23,6 +25,7 @@ export default function PortfolioRowCardExpanded({
   technologies = [],
   details,
   link,
+  href,
 }: PortfolioRowCardExpandedProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -57,13 +60,19 @@ export default function PortfolioRowCardExpanded({
             </div>
           )}
           <div className="portfolioRowCard__footer">
-            <button
-              className="portfolioRowCard__button"
-              type="button"
-              onClick={() => setIsExpanded(true)}
-            >
-              View Details
-            </button>
+            {href ? (
+              <Link href={href} className="portfolioRowCard__button">
+                View Details
+              </Link>
+            ) : (
+              <button
+                className="portfolioRowCard__button"
+                type="button"
+                onClick={() => setIsExpanded(true)}
+              >
+                View Details
+              </button>
+            )}
 
             {year && <span className="portfolioRowCard__year">{year}</span>}
           </div>
