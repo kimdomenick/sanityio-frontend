@@ -52,12 +52,12 @@ export default function CardStepper({ children }: CardStepperProps) {
           disabled={current === 0}
           aria-label="Previous"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="15 18 9 12 15 6" />
           </svg>
         </button>
 
-        <span className="card-stepper__count">
+        <span className="card-stepper__count" aria-live="polite" aria-atomic="true">
           {current + 1} / {total}
         </span>
 
@@ -67,7 +67,7 @@ export default function CardStepper({ children }: CardStepperProps) {
           disabled={current === total - 1}
           aria-label="Next"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="9 18 15 12 9 6" />
           </svg>
         </button>

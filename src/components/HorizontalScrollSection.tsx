@@ -78,6 +78,7 @@ export default function HorizontalScrollSection({
             aria-label="Scroll left"
           >
             <svg
+              aria-hidden="true"
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -111,6 +112,7 @@ export default function HorizontalScrollSection({
             aria-label="Scroll right"
           >
             <svg
+              aria-hidden="true"
               width="24"
               height="24"
               viewBox="0 0 24 24"

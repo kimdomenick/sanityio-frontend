@@ -3,7 +3,7 @@ import "@/app/styles/pages/not-found.css";
 
 export default function NotFound() {
   return (
-    <main className="not-found">
+    <main className="not-found" id="main-content">
       <div className="not-found__content">
         <h1 className="not-found__heading">404</h1>
         <p className="not-found__message">

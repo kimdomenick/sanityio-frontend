@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef, useEffect, useId } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "../app/styles/galleryModal.css";
 
@@ -19,6 +19,50 @@ interface GalleryModalProps {
 export default function GalleryModal({ images, title }: GalleryModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const uid = useId().replace(/:/g, "");
+  const titleId = `gallery-dialog-title-${uid}`;
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const wasOpenRef = useRef(false);
+
+  // Move focus into the dialog on open; restore to trigger on close
+  useEffect(() => {
+    if (isOpen) {
+      closeRef.current?.focus();
+      wasOpenRef.current = true;
+    } else if (wasOpenRef.current) {
+      triggerRef.current?.focus();
+    }
+  }, [isOpen]);
+
+  // ESC to close + Tab focus trap
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+        return;
+      }
+      if (e.key !== "Tab" || !modalRef.current) return;
+      const focusable = Array.from(
+        modalRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last?.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first?.focus();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
 
   if (images.length === 0) return null;
 
@@ -31,7 +75,13 @@ export default function GalleryModal({ images, title }: GalleryModalProps) {
 
   return (
     <>
-      <button className="galleryModal__trigger" type="button" onClick={open}>
+      <button
+        ref={triggerRef}
+        className="galleryModal__trigger"
+        type="button"
+        aria-haspopup="dialog"
+        onClick={open}
+      >
         See more images
       </button>
 
@@ -45,6 +95,10 @@ export default function GalleryModal({ images, title }: GalleryModalProps) {
             onClick={() => setIsOpen(false)}
           >
             <motion.div
+              ref={modalRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={titleId}
               className="galleryModal"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -53,12 +107,13 @@ export default function GalleryModal({ images, title }: GalleryModalProps) {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="galleryModal__header">
-                <h3 className="galleryModal__title">{title}</h3>
+                <h3 id={titleId} className="galleryModal__title">{title}</h3>
                 <div className="galleryModal__header-right">
-                  <span className="galleryModal__counter">
+                  <span className="galleryModal__counter" aria-live="polite" aria-atomic="true">
                     {selectedIndex + 1} / {images.length}
                   </span>
                   <button
+                    ref={closeRef}
                     className="galleryModal__close"
                     onClick={() => setIsOpen(false)}
                     aria-label="Close gallery"
@@ -87,12 +142,13 @@ export default function GalleryModal({ images, title }: GalleryModalProps) {
                       key={i}
                       className={`galleryModal__thumb${i === selectedIndex ? " galleryModal__thumb--active" : ""}`}
                       onClick={() => setSelectedIndex(i)}
-                      aria-label={`View image ${i + 1}`}
+                      aria-label={`View image ${i + 1} of ${images.length}`}
+                      aria-pressed={i === selectedIndex}
                     >
                       <div className="galleryModal__thumb-wrapper">
                         <Image
                           src={img.thumbUrl}
-                          alt={img.alt}
+                          alt=""
                           fill
                           className="galleryModal__thumb-image"
                         />

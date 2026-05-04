@@ -23,7 +23,7 @@ export default async function ArchivePage() {
 
   if (!archivePage) {
     return (
-      <main className="container mx-auto min-h-screen max-w-3xl p-8">
+      <main className="container mx-auto min-h-screen max-w-3xl p-8" id="main-content">
         <Link href="/" className="hover:underline mb-8 inline-block">
           ← Back to home
         </Link>
@@ -33,7 +33,7 @@ export default async function ArchivePage() {
   }
 
   return (
-    <main className="container mx-auto min-h-screen max-w-3xl p-8">
+    <main className="container mx-auto min-h-screen max-w-3xl p-8" id="main-content">
       <Link href="/" className="hover:underline mb-8 inline-block">
         ← Back to home
       </Link>

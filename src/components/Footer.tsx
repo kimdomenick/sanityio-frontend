@@ -10,7 +10,7 @@ const navigationItems = [
 
 export default function Footer() {
   return (
-    <footer className="site-footer w-full" role="contentinfo">
+    <footer className="site-footer w-full">
       <div className="site-footer__bg--1">
         <div className="site-footer__bg--2">
           <div className="container mx-auto px-8 py-8 h-full">

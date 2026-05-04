@@ -57,7 +57,7 @@
     font-family: var(--font-tenor-sans);
     background: none;
     border: none;
-    color: var(--hot-pink);
+    color: var(--wine);
     font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
@@ -65,13 +65,14 @@
     text-transform: uppercase;
     letter-spacing: 0.08em;
     transition: color 0.2s ease;
+    text-decoration: none;
 
     &::after {
       content: " →";
     }
 
     &:hover {
-      color: var(--wine);
+      color: var(--hot-pink);
     }
 
     &:focus-visible {

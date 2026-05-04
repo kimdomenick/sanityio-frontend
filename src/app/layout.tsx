@@ -4,6 +4,7 @@ import "./styles/globals.css";
 import "./styles/typography.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Providers from "@/components/Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -55,9 +56,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${tenorSans.variable} ${pacifico.variable} ${abrilFatface.variable} ${ooohBaby.variable} antialiased flex flex-col min-h-screen`}
       >
-        <Header />
-        <div className="main-content">{children}</div>
-        <Footer />
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
+        <Providers>
+          <Header />
+          <div className="main-content">{children}</div>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

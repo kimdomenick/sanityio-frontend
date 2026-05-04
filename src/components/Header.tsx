@@ -6,7 +6,6 @@ export default function Header() {
     <header className="site-header w-full border-b border-gray-200">
       <div className="container mx-auto px-8 py-6">
         <div className="flex flex-col items-center justify-center text-center gap-4">
-          {/* Logo and Site name */}
           <div className="flex items-center gap-4">
             <div className="flex-shrink-0">
               <Image
@@ -18,10 +17,9 @@ export default function Header() {
               />
             </div>
             <div>
-              <h1 className="site-title text-4xl font-bold">
+              <p className="site-title text-4xl font-bold">
                 Rose-Colored Code
-              </h1>
-              {/* Slogan */}
+              </p>
               <p className="site-slogan text-md">
                 Optimism, backed by decades in the trenches.
               </p>

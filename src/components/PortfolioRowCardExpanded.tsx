@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef, useEffect, useId } from "react";
 import "../app/styles/portfolioRowCard.css";
 
 interface PortfolioRowCardExpandedProps {
@@ -28,6 +28,50 @@ export default function PortfolioRowCardExpanded({
   href,
 }: PortfolioRowCardExpandedProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const uid = useId().replace(/:/g, "");
+  const titleId = `row-card-dialog-title-${uid}`;
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const wasOpenRef = useRef(false);
+
+  // Move focus into the dialog on open; restore it to the trigger on close
+  useEffect(() => {
+    if (isExpanded) {
+      closeRef.current?.focus();
+      wasOpenRef.current = true;
+    } else if (wasOpenRef.current) {
+      triggerRef.current?.focus();
+    }
+  }, [isExpanded]);
+
+  // ESC to close + Tab focus trap
+  useEffect(() => {
+    if (!isExpanded) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsExpanded(false);
+        return;
+      }
+      if (e.key !== "Tab" || !modalRef.current) return;
+      const focusable = Array.from(
+        modalRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last?.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first?.focus();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isExpanded]);
 
   return (
     <>
@@ -66,14 +110,15 @@ export default function PortfolioRowCardExpanded({
               </Link>
             ) : (
               <button
+                ref={triggerRef}
                 className="portfolioRowCard__button"
                 type="button"
+                aria-haspopup="dialog"
                 onClick={() => setIsExpanded(true)}
               >
                 View Details
               </button>
             )}
-
             {year && <span className="portfolioRowCard__year">{year}</span>}
           </div>
         </div>
@@ -89,6 +134,10 @@ export default function PortfolioRowCardExpanded({
             onClick={() => setIsExpanded(false)}
           >
             <motion.div
+              ref={modalRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={titleId}
               className="portfolioRowCard__modal"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -97,25 +146,23 @@ export default function PortfolioRowCardExpanded({
               onClick={(e) => e.stopPropagation()}
             >
               <button
+                ref={closeRef}
                 className="portfolioRowCard__modal-close"
                 onClick={() => setIsExpanded(false)}
-                aria-label="Close modal"
+                aria-label="Close dialog"
               >
                 ×
               </button>
 
               <div className="portfolioRowCard__modal-image-wrapper">
-                <Image
-                  src={image}
-                  alt={title}
-                  fill
-                  className="portfolioRowCard__image"
-                />
+                <Image src={image} alt="" fill className="portfolioRowCard__image" />
               </div>
 
               <div className="portfolioRowCard__modal-content">
                 <div className="portfolioRowCard__modal-header">
-                  <h2 className="portfolioRowCard__modal-title">{title}</h2>
+                  <h2 id={titleId} className="portfolioRowCard__modal-title">
+                    {title}
+                  </h2>
                   {year && (
                     <span className="portfolioRowCard__modal-year">{year}</span>
                   )}
@@ -137,10 +184,7 @@ export default function PortfolioRowCardExpanded({
                     <h4>Technologies Used</h4>
                     <div className="portfolioRowCard__tech-list">
                       {technologies.map((tech, index) => (
-                        <span
-                          key={index}
-                          className="portfolioRowCard__tech-tag"
-                        >
+                        <span key={index} className="portfolioRowCard__tech-tag">
                           {tech}
                         </span>
                       ))}
@@ -154,6 +198,7 @@ export default function PortfolioRowCardExpanded({
                     target="_blank"
                     rel="noopener noreferrer"
                     className="portfolioRowCard__modal-link"
+                    aria-label="View Project (opens in new tab)"
                   >
                     View Project →
                   </a>

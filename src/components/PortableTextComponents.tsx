@@ -62,6 +62,7 @@ export const portableTextComponents: PortableTextComponents = {
           rel="noopener noreferrer"
         >
           {children}
+          <span className="sr-only"> (opens in new tab)</span>
         </a>
       );
     },

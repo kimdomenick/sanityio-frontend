@@ -64,7 +64,7 @@ export default async function PortfolioRowPage({
 
   if (!row) {
     return (
-      <main className="container mx-auto min-h-screen max-w-5xl p-8">
+      <main id="main-content" className="container mx-auto min-h-screen max-w-5xl p-8">
         <Link href="/" className="hover:underline">← Back to home</Link>
         <h1 className="text-4xl font-bold mt-8">Portfolio row not found</h1>
       </main>
@@ -72,7 +72,7 @@ export default async function PortfolioRowPage({
   }
 
   return (
-    <main className="portfolioRowPage">
+    <main className="portfolioRowPage" id="main-content">
       <div className="portfolioRowPage__hero">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

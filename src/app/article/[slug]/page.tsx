@@ -32,7 +32,7 @@ export default async function PostPage({
 
   if (!post) {
     return (
-      <main className="container mx-auto min-h-screen max-w-3xl p-8">
+      <main id="main-content" className="container mx-auto min-h-screen max-w-3xl p-8">
         <Link href="/archive" className="hover:underline">
           ← Back to articles
         </Link>
@@ -46,7 +46,7 @@ export default async function PostPage({
     : null;
 
   return (
-    <main className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-4">
+    <main id="main-content" className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-4">
       <Link href="/archive" className="hover:underline">
         ← Back to posts
       </Link>

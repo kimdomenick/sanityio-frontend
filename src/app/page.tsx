@@ -48,7 +48,7 @@ export default async function IndexPage() {
   ]);
 
   return (
-    <main className="home">
+    <main className="home" id="main-content">
       <section id="hello" className="home__hello">
         <h1>Kimberly Rosenberry</h1>
         <p className="my-name">

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef, useEffect, useId } from "react";
 import "../app/styles/portfolioCard.css";
 
 interface PortfolioCardExpandedProps {
@@ -25,6 +25,50 @@ export default function PortfolioCardExpanded({
   link,
 }: PortfolioCardExpandedProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const uid = useId().replace(/:/g, "");
+  const titleId = `card-dialog-title-${uid}`;
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const wasOpenRef = useRef(false);
+
+  // Move focus into the dialog on open; restore it to the trigger on close
+  useEffect(() => {
+    if (isExpanded) {
+      closeRef.current?.focus();
+      wasOpenRef.current = true;
+    } else if (wasOpenRef.current) {
+      triggerRef.current?.focus();
+    }
+  }, [isExpanded]);
+
+  // ESC to close + Tab focus trap
+  useEffect(() => {
+    if (!isExpanded) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsExpanded(false);
+        return;
+      }
+      if (e.key !== "Tab" || !modalRef.current) return;
+      const focusable = Array.from(
+        modalRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last?.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first?.focus();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isExpanded]);
 
   return (
     <>
@@ -37,12 +81,7 @@ export default function PortfolioCardExpanded({
         whileHover={{ scale: 1.02 }}
       >
         <div className="portfolioCard__imageWrapper">
-          <Image
-            src={image}
-            alt={title}
-            fill
-            className="portfolioCard__image"
-          />
+          <Image src={image} alt={title} fill className="portfolioCard__image" />
         </div>
         <div className="portfolioCard__content">
           <div className="portfolioCard__header">
@@ -60,8 +99,10 @@ export default function PortfolioCardExpanded({
             </div>
           )}
           <button
+            ref={triggerRef}
             className="portfolioCard__button"
             type="button"
+            aria-haspopup="dialog"
             onClick={() => setIsExpanded(true)}
           >
             View Details
@@ -79,6 +120,10 @@ export default function PortfolioCardExpanded({
             onClick={() => setIsExpanded(false)}
           >
             <motion.div
+              ref={modalRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={titleId}
               className="portfolioCard__modal"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -87,33 +132,29 @@ export default function PortfolioCardExpanded({
               onClick={(e) => e.stopPropagation()}
             >
               <button
+                ref={closeRef}
                 className="portfolioCard__modal-close"
                 onClick={() => setIsExpanded(false)}
-                aria-label="Close modal"
+                aria-label="Close dialog"
               >
                 ×
               </button>
 
               <div className="portfolioCard__modal-image-wrapper">
-                <Image
-                  src={image}
-                  alt={title}
-                  fill
-                  className="portfolioCard__image"
-                />
+                <Image src={image} alt="" fill className="portfolioCard__image" />
               </div>
 
               <div className="portfolioCard__modal-content">
                 <div className="portfolioCard__modal-header">
-                  <h2 className="portfolioCard__modal-title">{title}</h2>
+                  <h2 id={titleId} className="portfolioCard__modal-title">
+                    {title}
+                  </h2>
                   {year && (
                     <span className="portfolioCard__modal-year">{year}</span>
                   )}
                 </div>
 
-                <p className="portfolioCard__modal-description">
-                  {description}
-                </p>
+                <p className="portfolioCard__modal-description">{description}</p>
 
                 {details && (
                   <div className="portfolioCard__modal-details">
@@ -141,6 +182,7 @@ export default function PortfolioCardExpanded({
                     target="_blank"
                     rel="noopener noreferrer"
                     className="portfolioCard__modal-link"
+                    aria-label="View Project (opens in new tab)"
                   >
                     View Project →
                   </a>

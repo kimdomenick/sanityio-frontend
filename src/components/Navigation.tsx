@@ -12,7 +12,7 @@ export default function Navigation() {
   const pathname = usePathname();
 
   return (
-    <nav role="navigation" aria-label="Main navigation">
+    <nav aria-label="Main navigation">
       <ul className="flex gap-4">
         {navigationItems.map(({ href, label }) => {
           const isActive =
