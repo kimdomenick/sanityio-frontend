@@ -11,7 +11,7 @@ export default function NotFound() {
         </p>
         <p>Yea, it's totally me, not you.</p>
         <p>Maybe just go home where it's safe.</p>
-        <Link href="/" className="not-found__link">
+        <Link href="/" className="back-link">
           ← Back to home
         </Link>
       </div>

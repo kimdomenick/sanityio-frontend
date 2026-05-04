@@ -143,6 +143,26 @@ blockquote footer::before {
   }
 }
 
+/* Back-to-home / back navigation link */
+.back-link {
+  font-family: var(--font-tenor-sans);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--wine);
+  text-decoration: none;
+  opacity: 0.7;
+  display: inline-block;
+  margin-bottom: 2rem;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    color: var(--wine);
+    opacity: 1;
+    text-decoration: none;
+  }
+}
+
 /* Standard Layout Styles */
 .main-content {
   flex: 1;

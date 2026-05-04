@@ -4,8 +4,12 @@
   height: 100%;
 
   &__card {
-    flex: 1;
-    min-height: 0;
+    display: grid;
+    overflow: hidden;
+
+    > * {
+      grid-area: 1 / 1;
+    }
   }
 
   &__controls {

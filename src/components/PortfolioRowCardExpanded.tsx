@@ -105,7 +105,7 @@ export default function PortfolioRowCardExpanded({
           )}
           <div className="portfolioRowCard__footer">
             {href ? (
-              <Link href={href} className="portfolioRowCard__button">
+              <Link href={href} className="portfolioRowCard__button portfolioRowCard__button--stretched">
                 View Details
               </Link>
             ) : (

@@ -65,7 +65,7 @@ export default async function PortfolioRowPage({
   if (!row) {
     return (
       <main id="main-content" className="container mx-auto min-h-screen max-w-5xl p-8">
-        <Link href="/" className="hover:underline">← Back to home</Link>
+        <Link href="/" className="back-link">← Back to home</Link>
         <h1 className="text-4xl font-bold mt-8">Portfolio row not found</h1>
       </main>
     );
@@ -82,7 +82,7 @@ export default async function PortfolioRowPage({
           className="portfolioRowPage__hero-sign"
         />
         <div className="portfolioRowPage__hero-content container mx-auto px-8">
-          <Link href="/" className="portfolioRowPage__back">← Back to home</Link>
+          <Link href="/" className="back-link">← Back to home</Link>
           <h1 className="portfolioRowPage__title">{row.name}</h1>
           {Array.isArray(row.description) && row.description.length > 0 && (
             <div className="portfolioRowPage__description">

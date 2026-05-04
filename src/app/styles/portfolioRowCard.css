@@ -3,6 +3,7 @@
   flex-direction: column;
   background: white;
   border: 1px solid rgba(204, 203, 203, 0.393);
+  position: relative;
 
   &:hover &__image {
     transform: scale(1.02);
@@ -78,6 +79,12 @@
     &:focus-visible {
       outline: 2px solid var(--hot-pink);
       outline-offset: 3px;
+    }
+
+    &--stretched::after {
+      content: "";
+      position: absolute;
+      inset: 0;
     }
   }
 
