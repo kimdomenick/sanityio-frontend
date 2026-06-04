@@ -86,22 +86,6 @@ export default async function AboutPage() {
           </div>
         )}
       </div>
-      <section id="history" className="about__history">
-        <HorizontalScrollSection title="25+ Years of Innovation">
-          {portfolioProjects.map((project: any, index: number) => (
-            <PortfolioCardExpanded
-              key={index}
-              title={project.title}
-              year={project.year}
-              image={project.image}
-              description={project.description}
-              details={project.details}
-              technologies={project.technologies}
-              link={project.link}
-            />
-          ))}
-        </HorizontalScrollSection>
-      </section>
     </main>
   );
 }

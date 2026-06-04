@@ -89,15 +89,12 @@ export default async function IndexPage() {
             <div className="overview-column">
               <h2 className="overview-column__title">What is this site?</h2>
               <p className="overview-column__content">
-                A slightly nostalgic, slightly sarcastic tour through decades of
-                web development.
-              </p>{" "}
-              <p>
-                Because if you don’t save screenshots of the things you built,
-                did they really happen?
+                It's my own personal Way Back Machine. A slightly nostalgic,
+                slightly sarcastic tour through decades of web development.
               </p>
               <p>
-                <Link href="/about">My philosophy</Link>
+                Because if you didn't save screenshots of the things you built,
+                did they really happen?
               </p>
             </div>
 
@@ -126,9 +123,7 @@ export default async function IndexPage() {
 
       <section id="flip-flop" className="home__flip-flop">
         <div className="home__flip-flop__title container mx-auto py-12">
-          <h2 className="abril">
-            Every row is a journey. Every journey is different.
-          </h2>
+          <h2 className="abril">The internet keeps receipts. And so do I.</h2>
         </div>
         {portfolioRows.map((row: any, index: number) => {
           const rowTechnologies = [
