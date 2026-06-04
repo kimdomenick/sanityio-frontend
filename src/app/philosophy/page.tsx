@@ -9,7 +9,7 @@ import PortfolioCardExpanded from "@/components/PortfolioCardExpanded";
 // Type for Sanity documents
 type SanityDocument = Record<string, any>;
 
-const ABOUT_QUERY = `*[_type == "landingPage" && slug.current == "about"][0]`;
+const ABOUT_QUERY = `*[_type == "landingPage" && slug.current == "philosophy"][0]`;
 
 const PORTFOLIO_QUERY = `*[
   _type == "portfolioArchive"
@@ -58,7 +58,10 @@ export default async function AboutPage() {
 
   if (!aboutPage) {
     return (
-      <main className="container mx-auto min-h-screen max-w-3xl p-8" id="main-content">
+      <main
+        className="container mx-auto min-h-screen max-w-3xl p-8"
+        id="main-content"
+      >
         <Link href="/" className="back-link">
           ← Back to home
         </Link>

@@ -61,7 +61,7 @@ export default async function IndexPage() {
           <div className="overview-grid">
             {/* Column: Current Situation */}
             <div className="overview-column">
-              <h2 className="overview-column__title">Current Situation</h2>
+              <h2 className="overview-column__title">Who Am I?</h2>
               <div className="overview-column__content">
                 {homePage &&
                 Array.isArray(homePage.body) &&
@@ -87,11 +87,14 @@ export default async function IndexPage() {
 
             {/* Column: Experience */}
             <div className="overview-column">
-              <h2 className="overview-column__title">Experience</h2>
+              <h2 className="overview-column__title">What is this site?</h2>
               <p className="overview-column__content">
-                Building the web long enough to outlive a few frameworks. Dev,
-                tech writing, UX/UI design, the occasional DevOps adventure.
-                I've been around.
+                A slightly nostalgic, slightly sarcastic tour through decades of
+                web development.
+              </p>{" "}
+              <p>
+                Because if you don’t save screenshots of the things you built,
+                did they really happen?
               </p>
               <p>
                 <Link href="/about">My philosophy</Link>
@@ -113,7 +116,9 @@ export default async function IndexPage() {
             <div className="overview-column">
               <h2 className="overview-column__title">History</h2>
               <p className="overview-column__content">25+ years of it.</p>
-              <p className="overview-column__content">Scroll, please.</p>
+              <p className="overview-column__content">
+                Scroll, please. I have evidence.
+              </p>
             </div>
           </div>
         </div>
@@ -150,7 +155,9 @@ export default async function IndexPage() {
                     />
                   </div>
                   {row.blurb && (
-                    <p className="home__flip-flop__year__title__blurb">{row.blurb}</p>
+                    <p className="home__flip-flop__year__title__blurb">
+                      {row.blurb}
+                    </p>
                   )}
                   {rowTechnologies.length > 0 && (
                     <ul className="home__flip-flop__year__title__technologies">
@@ -186,7 +193,11 @@ export default async function IndexPage() {
                               ? `/portfolio/${item.slug.current}`
                               : "#"
                           }
-                          href={row.slug?.current ? `/portfolio-row/${row.slug.current}` : undefined}
+                          href={
+                            row.slug?.current
+                              ? `/portfolio-row/${row.slug.current}`
+                              : undefined
+                          }
                         />
                       ),
                     )}
