@@ -13,7 +13,11 @@ type SanityDocument = Record<string, any>;
 
 const HOME_QUERY = `*[_type == "landingPage" && slug.current == "home"][0]`;
 
-const PORTFOLIO_ROW_QUERY = `*[_type == "portfolioRow"] | order(sortOrder asc) {
+const PORTFOLIO_ROW_QUERY = `*[
+  _type == "portfolioRow"
+  && defined(slug.current)
+  && !(_id in path("drafts.**"))
+] | order(sortOrder asc) {
   _id,
   name,
   slug,

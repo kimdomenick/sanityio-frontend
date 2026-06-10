@@ -9,24 +9,25 @@
     overflow: hidden;
   }
 
-  &__hero-content {
+  &__hero-inner {
     position: relative;
     z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+      align-items: stretch;
+    }
   }
 
-  &__hero-sign {
-    position: absolute;
-    right: 20%;
-    top: 50%;
-    transform: translateY(-50%) rotate(-6deg);
-    width: 560px;
-    height: 560px;
-    opacity: 0.45;
-    pointer-events: none;
-    user-select: none;
+  &__hero-content {
+    flex: 1 1 auto;
+    max-width: 680px;
   }
 
-&__title {
+  &__title {
     margin: 0 0 0.5rem;
 
     &::after {
@@ -144,7 +145,6 @@
       font-size: 0.9rem;
       line-height: 1.7;
       color: var(--foreground);
-      border-top: 1px solid rgba(204, 203, 203, 0.4);
       padding-top: 1rem;
     }
   }
@@ -156,5 +156,120 @@
     opacity: 0.6;
     font-family: var(--font-tenor-sans);
     grid-column: 1 / -1;
+  }
+
+  /* Scope the shared GalleryModal trigger to this template, styling it
+     like the tech tag list items (see portfolioRowCard__tech-tag). */
+  .galleryModal__trigger {
+    border: none;
+    text-transform: none;
+    letter-spacing: 0.05em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.35rem 0.85rem;
+    background: linear-gradient(
+      135deg,
+      var(--hot-pink) 0%,
+      var(--watermelon) 100%
+    );
+    color: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 4px rgba(246, 76, 157, 0.3);
+    transition: transform 0.2s ease;
+
+    &:hover {
+      background: linear-gradient(
+        135deg,
+        var(--hot-pink) 0%,
+        var(--watermelon) 100%
+      );
+      color: white;
+      transform: scale(1.05);
+    }
+  }
+
+  /* Pager lives in the hero, sitting over the decorative sign shape
+     (promoted from a decorative <img> to this element's background). */
+  &__pager {
+    position: relative;
+    flex: 0 0 auto;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.75rem;
+    padding: 3.5rem;
+    /* Square box that grows with the link text, so the shape behind it
+       (sized via the ::before below) always wraps the content. */
+    width: fit-content;
+    min-width: 300px;
+    max-width: 380px;
+    aspect-ratio: 1;
+
+    &::before {
+      content: "";
+      position: absolute;
+      /* Grow the shape beyond the box on all sides so it wraps the links
+         instead of cropping to their edges. */
+      inset: -4rem;
+      transform: rotate(-6deg);
+      background: url("/sign.svg") no-repeat center / contain;
+      opacity: 0.45;
+      pointer-events: none;
+      user-select: none;
+      z-index: -1;
+    }
+
+    @media (max-width: 900px) {
+      align-self: stretch;
+      width: auto;
+      min-width: 0;
+      max-width: none;
+      aspect-ratio: auto;
+      padding: 3rem 0 0;
+      margin-top: 1rem;
+      border-top: 1px solid rgba(204, 203, 203, 0.4);
+
+      &::before {
+        display: none;
+      }
+    }
+
+    &-link {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      color: var(--wine);
+      transition: color 0.2s ease;
+
+      &--next {
+        text-align: right;
+        align-items: flex-end;
+      }
+
+      &:hover {
+        color: var(--hot-pink);
+      }
+
+      @media (max-width: 900px) {
+        &--next {
+          text-align: left;
+          align-items: flex-start;
+        }
+      }
+    }
+
+    &-direction {
+      font-family: var(--font-tenor-sans);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+
+    &-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
   }
 }

@@ -41,6 +41,16 @@ const ALL_ROWS_QUERY = `*[
   && !(_id in path("drafts.**"))
 ]{ "slug": slug.current }`;
 
+// Ordered list of rows for prev/next pagination — matches the home page order.
+const ROW_NAV_QUERY = `*[
+  _type == "portfolioRow"
+  && defined(slug.current)
+  && !(_id in path("drafts.**"))
+] | order(sortOrder asc) {
+  "slug": slug.current,
+  name
+}`;
+
 const { projectId, dataset } = client.config();
 const urlFor = (source: SanityImageSource) =>
   projectId && dataset
@@ -60,12 +70,29 @@ export default async function PortfolioRowPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const row = await client.fetch<SanityDocument>(ROW_QUERY, { slug }, options);
+  const [row, navRows] = await Promise.all([
+    client.fetch<SanityDocument>(ROW_QUERY, { slug }, options),
+    client.fetch<SanityDocument[]>(ROW_NAV_QUERY, {}, options),
+  ]);
+
+  const currentIndex = navRows.findIndex((r) => r.slug === slug);
+  const hasSiblings = currentIndex !== -1 && navRows.length > 1;
+  const prevRow = hasSiblings
+    ? navRows[(currentIndex - 1 + navRows.length) % navRows.length]
+    : null;
+  const nextRow = hasSiblings
+    ? navRows[(currentIndex + 1) % navRows.length]
+    : null;
 
   if (!row) {
     return (
-      <main id="main-content" className="container mx-auto min-h-screen max-w-5xl p-8">
-        <Link href="/" className="back-link">← Back to home</Link>
+      <main
+        id="main-content"
+        className="container mx-auto min-h-screen max-w-5xl p-8"
+      >
+        <Link href="/" className="back-link">
+          ← Back to home
+        </Link>
         <h1 className="text-4xl font-bold mt-8">Portfolio row not found</h1>
       </main>
     );
@@ -74,23 +101,55 @@ export default async function PortfolioRowPage({
   return (
     <main className="portfolioRowPage" id="main-content">
       <div className="portfolioRowPage__hero">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/sign.svg"
-          alt=""
-          aria-hidden="true"
-          className="portfolioRowPage__hero-sign"
-        />
-        <div className="portfolioRowPage__hero-content container mx-auto px-8">
-          <Link href="/" className="back-link">← Back to home</Link>
-          <h1 className="portfolioRowPage__title">{row.name}</h1>
-          {Array.isArray(row.description) && row.description.length > 0 && (
-            <div className="portfolioRowPage__description">
-              <PortableText value={row.description} components={portableTextComponents} />
-            </div>
-          )}
-          {row.blurb && (
-            <p className="portfolioRowPage__blurb">{row.blurb}</p>
+        <div className="portfolioRowPage__hero-inner container mx-auto px-8">
+          <div className="portfolioRowPage__hero-content">
+            <Link href="/" className="back-link">
+              ← Back to home
+            </Link>
+            <h1 className="portfolioRowPage__title">{row.name}</h1>
+            {Array.isArray(row.description) && row.description.length > 0 && (
+              <div className="portfolioRowPage__description">
+                <PortableText
+                  value={row.description}
+                  components={portableTextComponents}
+                />
+              </div>
+            )}
+            {row.blurb && (
+              <p className="portfolioRowPage__blurb">{row.blurb}</p>
+            )}
+          </div>
+
+          {prevRow && nextRow && (
+            <nav
+              className="portfolioRowPage__pager"
+              aria-label="Portfolio row navigation"
+            >
+              <Link
+                href={`/portfolio-row/${prevRow.slug}`}
+                className="portfolioRowPage__pager-link portfolioRowPage__pager-link--prev"
+                rel="prev"
+              >
+                <span className="portfolioRowPage__pager-direction">
+                  ← Previous
+                </span>
+                <span className="portfolioRowPage__pager-name">
+                  {prevRow.name}
+                </span>
+              </Link>
+              <Link
+                href={`/portfolio-row/${nextRow.slug}`}
+                className="portfolioRowPage__pager-link portfolioRowPage__pager-link--next"
+                rel="next"
+              >
+                <span className="portfolioRowPage__pager-direction">
+                  Next →
+                </span>
+                <span className="portfolioRowPage__pager-name">
+                  {nextRow.name}
+                </span>
+              </Link>
+            </nav>
           )}
         </div>
       </div>
@@ -99,37 +158,61 @@ export default async function PortfolioRowPage({
         <div className="container mx-auto px-8 py-12">
           <div className="portfolioRowPage__grid">
             {(row.portfolioItems ?? []).length === 0 && (
-              <p className="portfolioRowPage__empty">No items in this row yet.</p>
+              <p className="portfolioRowPage__empty">
+                No items in this row yet.
+              </p>
             )}
             {(row.portfolioItems ?? []).map((item: any) => {
               const imageUrl = item.image
-                ? (urlFor(item.image as SanityImageSource)?.width(600).height(450).url() ?? "/globe.svg")
+                ? (urlFor(item.image as SanityImageSource)
+                    ?.width(600)
+                    .height(450)
+                    .url() ?? "/globe.svg")
                 : "/globe.svg";
 
               const technologies: string[] = item.technologies ?? [];
 
               const rawGallery: GalleryImage[] = (item.gallery ?? [])
                 .map((img: any) => ({
-                  url: urlFor(img as SanityImageSource)?.width(1200).height(900).url() ?? "",
-                  thumbUrl: urlFor(img as SanityImageSource)?.width(200).height(150).url() ?? "",
+                  url:
+                    urlFor(img as SanityImageSource)
+                      ?.width(1200)
+                      .height(900)
+                      .url() ?? "",
+                  thumbUrl:
+                    urlFor(img as SanityImageSource)
+                      ?.width(200)
+                      .height(150)
+                      .url() ?? "",
                   alt: img.alt ?? item.title,
                 }))
                 .filter((img: GalleryImage) => img.url !== "");
 
               const featuredAsGalleryImage: GalleryImage | null = item.image
                 ? {
-                    url: urlFor(item.image as SanityImageSource)?.width(1200).height(900).url() ?? "",
-                    thumbUrl: urlFor(item.image as SanityImageSource)?.width(200).height(150).url() ?? "",
+                    url:
+                      urlFor(item.image as SanityImageSource)
+                        ?.width(1200)
+                        .height(900)
+                        .url() ?? "",
+                    thumbUrl:
+                      urlFor(item.image as SanityImageSource)
+                        ?.width(200)
+                        .height(150)
+                        .url() ?? "",
                     alt: item.image.alt ?? item.title,
                   }
                 : null;
 
-              const galleryImages: GalleryImage[] = rawGallery.length > 0
-                ? [
-                    ...(featuredAsGalleryImage?.url ? [featuredAsGalleryImage] : []),
-                    ...rawGallery,
-                  ]
-                : [];
+              const galleryImages: GalleryImage[] =
+                rawGallery.length > 0
+                  ? [
+                      ...(featuredAsGalleryImage?.url
+                        ? [featuredAsGalleryImage]
+                        : []),
+                      ...rawGallery,
+                    ]
+                  : [];
 
               return (
                 <article key={item._id} className="portfolioRowPage__item">
@@ -143,24 +226,24 @@ export default async function PortfolioRowPage({
                   </div>
                   <div className="portfolioRowPage__item-content">
                     <div className="portfolioRowPage__item-header">
-                      <h2 className="portfolioRowPage__item-title">{item.title}</h2>
+                      <h2 className="portfolioRowPage__item-title">
+                        {item.title}
+                      </h2>
                       {item.year && (
-                        <time className="portfolioRowPage__item-year" dateTime={String(item.year)}>{item.year}</time>
+                        <time
+                          className="portfolioRowPage__item-year"
+                          dateTime={String(item.year)}
+                        >
+                          {item.year}
+                        </time>
                       )}
                     </div>
-                    {item.shortDescription && (
-                      <p className="portfolioRowPage__item-description">{item.shortDescription}</p>
-                    )}
-                    {technologies.length > 0 && (
-                      <ul className="portfolioRowPage__item-technologies">
-                        {technologies.map((tech, i) => (
-                          <li key={i} className="portfolioRowCard__tech-tag">{tech}</li>
-                        ))}
-                      </ul>
-                    )}
                     {Array.isArray(item.body) && item.body.length > 0 && (
                       <div className="portfolioRowPage__item-body">
-                        <PortableText value={item.body} components={portableTextComponents} />
+                        <PortableText
+                          value={item.body}
+                          components={portableTextComponents}
+                        />
                       </div>
                     )}
                     <GalleryModal images={galleryImages} title={item.title} />
