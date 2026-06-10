@@ -8,7 +8,10 @@ import { portableTextComponents } from "@/components/PortableTextComponents";
 // Type for Sanity documents
 type SanityDocument = Record<string, any>;
 
-const POST_QUERY = `*[_type == "article" && slug.current == $slug][0]`;
+const POST_QUERY = `*[_type == "article" && slug.current == $slug][0]{
+  ...,
+  "imageDimensions": image.asset->metadata.dimensions
+}`;
 
 const { projectId, dataset } = client.config();
 const urlFor = (source: SanityImageSource) =>
@@ -32,8 +35,11 @@ export default async function PostPage({
 
   if (!post) {
     return (
-      <main id="main-content" className="container mx-auto min-h-screen max-w-3xl p-8">
-        <Link href="/archive" className="hover:underline">
+      <main
+        id="main-content"
+        className="container mx-auto min-h-screen max-w-3xl p-8"
+      >
+        <Link href="/archive" className="back-link">
           ← Back to articles
         </Link>
         <h1 className="text-4xl font-bold mt-8">Article not found</h1>
@@ -41,22 +47,23 @@ export default async function PostPage({
     );
   }
 
-  const postImageUrl = post.image
-    ? urlFor(post.image)?.width(550).height(310).url()
-    : null;
+  const postImageUrl = post.image ? urlFor(post.image)?.url() : null;
 
   return (
-    <main id="main-content" className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-4">
-      <Link href="/archive" className="hover:underline">
+    <main
+      id="main-content"
+      className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-4"
+    >
+      <Link href="/archive" className="back-link">
         ← Back to posts
       </Link>
       {postImageUrl && (
         <img
           src={postImageUrl}
           alt={post.name}
-          className="aspect-video rounded-xl"
-          width="550"
-          height="310"
+          width={post.imageDimensions?.width}
+          height={post.imageDimensions?.height}
+          className="h-auto w-auto max-w-[200px] rounded-xl"
         />
       )}
       <h1 className="text-4xl font-bold mb-8">{post.name}</h1>

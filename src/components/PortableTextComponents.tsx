@@ -40,6 +40,11 @@ export const portableTextComponents: PortableTextComponents = {
     ),
   },
   marks: {
+    code: ({ children }) => (
+      <code className="rounded bg-gray-100 px-1.5 py-0.5 font-mono text-sm text-gray-800">
+        {children}
+      </code>
+    ),
     link: ({ children, value }) => {
       const href = value?.href || "#";
 
