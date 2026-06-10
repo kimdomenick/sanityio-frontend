@@ -55,6 +55,45 @@
 
   &__items {
     background: var(--background);
+    position: relative;
+    overflow: hidden;
+    /* New stacking context so the z-index: -1 stars below sit above this
+       section's background but behind the in-flow card content. */
+    isolation: isolate;
+
+    /* Decorative stars hugging the left/right edges, behind the cards —
+       gives a centered single card some visual company. */
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: 30%;
+      width: 260px;
+      height: 260px;
+      background: url("/star.svg") no-repeat center / contain;
+      opacity: 0.25;
+      pointer-events: none;
+      user-select: none;
+      z-index: -1;
+    }
+
+    &::before {
+      left: -90px;
+      transform: translateY(-70%) rotate(-12deg);
+    }
+
+    &::after {
+      right: -90px;
+      transform: translateY(-30%) rotate(12deg);
+    }
+
+    @media (max-width: 900px) {
+      &::before,
+      &::after {
+        width: 160px;
+        height: 160px;
+      }
+    }
   }
 
   /* Flex (not grid) so a single/partial row of cards centers instead of
