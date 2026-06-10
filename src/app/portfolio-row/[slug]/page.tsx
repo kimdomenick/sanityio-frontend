@@ -170,8 +170,6 @@ export default async function PortfolioRowPage({
                     .url() ?? "/globe.svg")
                 : "/globe.svg";
 
-              const technologies: string[] = item.technologies ?? [];
-
               const rawGallery: GalleryImage[] = (item.gallery ?? [])
                 .map((img: any) => ({
                   url:
