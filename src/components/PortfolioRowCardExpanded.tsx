@@ -56,8 +56,8 @@ export default function PortfolioRowCardExpanded({
       if (e.key !== "Tab" || !modalRef.current) return;
       const focusable = Array.from(
         modalRef.current.querySelectorAll<HTMLElement>(
-          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        )
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
       );
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
@@ -105,7 +105,10 @@ export default function PortfolioRowCardExpanded({
           )}
           <div className="portfolioRowCard__footer">
             {href ? (
-              <Link href={href} className="portfolioRowCard__button portfolioRowCard__button--stretched">
+              <Link
+                href={href}
+                className="portfolioRowCard__button portfolioRowCard__button--stretched"
+              >
                 View Details
               </Link>
             ) : (
@@ -119,7 +122,11 @@ export default function PortfolioRowCardExpanded({
                 View Details
               </button>
             )}
-            {year && <time className="portfolioRowCard__year" dateTime={year}>{year}</time>}
+            {year && (
+              <time className="portfolioRowCard__year" dateTime={year}>
+                {year}
+              </time>
+            )}
           </div>
         </div>
       </motion.article>
@@ -155,7 +162,12 @@ export default function PortfolioRowCardExpanded({
               </button>
 
               <div className="portfolioRowCard__modal-image-wrapper">
-                <Image src={image} alt="" fill className="portfolioRowCard__image" />
+                <Image
+                  src={image}
+                  alt=""
+                  fill
+                  className="portfolioRowCard__image"
+                />
               </div>
 
               <div className="portfolioRowCard__modal-content">
@@ -164,7 +176,12 @@ export default function PortfolioRowCardExpanded({
                     {title}
                   </h2>
                   {year && (
-                    <time className="portfolioRowCard__modal-year" dateTime={year}>{year}</time>
+                    <time
+                      className="portfolioRowCard__modal-year"
+                      dateTime={year}
+                    >
+                      {year}
+                    </time>
                   )}
                 </div>
 

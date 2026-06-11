@@ -53,8 +53,8 @@ export default function PortfolioCardExpanded({
       if (e.key !== "Tab" || !modalRef.current) return;
       const focusable = Array.from(
         modalRef.current.querySelectorAll<HTMLElement>(
-          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        )
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
       );
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
@@ -81,12 +81,21 @@ export default function PortfolioCardExpanded({
         whileHover={{ scale: 1.02 }}
       >
         <div className="portfolioCard__imageWrapper">
-          <Image src={image} alt={title} fill className="portfolioCard__image" />
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="portfolioCard__image"
+          />
         </div>
         <div className="portfolioCard__content">
           <div className="portfolioCard__header">
             <h3 className="portfolioCard__title">{title}</h3>
-            {year && <time className="portfolioCard__year" dateTime={year}>{year}</time>}
+            {year && (
+              <time className="portfolioCard__year" dateTime={year}>
+                {year}
+              </time>
+            )}
           </div>
           <p className="portfolioCard__description">{description}</p>
           {technologies.length > 0 && (
@@ -141,7 +150,12 @@ export default function PortfolioCardExpanded({
               </button>
 
               <div className="portfolioCard__modal-image-wrapper">
-                <Image src={image} alt="" fill className="portfolioCard__image" />
+                <Image
+                  src={image}
+                  alt=""
+                  fill
+                  className="portfolioCard__image"
+                />
               </div>
 
               <div className="portfolioCard__modal-content">
@@ -150,11 +164,15 @@ export default function PortfolioCardExpanded({
                     {title}
                   </h2>
                   {year && (
-                    <time className="portfolioCard__modal-year" dateTime={year}>{year}</time>
+                    <time className="portfolioCard__modal-year" dateTime={year}>
+                      {year}
+                    </time>
                   )}
                 </div>
 
-                <p className="portfolioCard__modal-description">{description}</p>
+                <p className="portfolioCard__modal-description">
+                  {description}
+                </p>
 
                 {details && (
                   <div className="portfolioCard__modal-details">

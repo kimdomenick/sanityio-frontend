@@ -15,12 +15,7 @@ export default function PortfolioCard({
   return (
     <article className="portfolioCard">
       <div className="portfolioCard__imageWrapper">
-        <Image
-          src={image}
-          alt={title}
-          fill
-          className="portfolioCard__image"
-        />
+        <Image src={image} alt={title} fill className="portfolioCard__image" />
       </div>
       <div className="portfolioCard__content">
         <h3 className="portfolioCard__title">{title}</h3>

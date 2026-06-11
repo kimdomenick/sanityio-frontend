@@ -1,10 +1,8 @@
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
-import imageUrlBuilder from "@sanity/image-url";
-import HorizontalScrollSection from "@/components/HorizontalScrollSection";
 import { client } from "@/sanity/client";
+import type { SanityDocument } from "@/sanity/types";
 import { portableTextComponents } from "@/components/PortableTextComponents";
-import PortfolioCardExpanded from "@/components/PortfolioCardExpanded";
 import {
   StructuredData,
   personNode,
@@ -13,55 +11,16 @@ import {
   breadcrumbNode,
 } from "@/components/structuredData";
 
-// Type for Sanity documents
-type SanityDocument = Record<string, any>;
-
 const ABOUT_QUERY = `*[_type == "landingPage" && slug.current == "philosophy"][0]`;
-
-const PORTFOLIO_QUERY = `*[
-  _type == "portfolioArchive"
-  && published == true
-  && portfolioType->title == "Tech/Development"
-  && defined(slug.current)
-] | order(year desc) {
-  _id,
-  title,
-  slug,
-  year,
-  shortDescription,
-  body,
-  image,
-  "technologies": portfolioCategory[]->title
-}`;
-
-// Image URL builder
-const { projectId, dataset } = client.config();
-const urlFor = (source: any) =>
-  projectId && dataset
-    ? imageUrlBuilder({ projectId, dataset }).image(source)
-    : null;
 
 const options = { next: { revalidate: 30 } };
 
 export default async function AboutPage() {
-  const [aboutPage, portfolioItems] = await Promise.all([
-    client.fetch<SanityDocument>(ABOUT_QUERY, {}, options),
-    client.fetch<SanityDocument[]>(PORTFOLIO_QUERY, {}, options),
-  ]);
-
-  // Map portfolio data to component format
-  const portfolioProjects = portfolioItems.map((item: any) => ({
-    title: item.title,
-    year: item.year?.toString() || "",
-    image: item.image
-      ? urlFor(item.image)?.width(400).height(300).url() || "/globe.svg"
-      : "/globe.svg",
-    description: item.shortDescription || "",
-    details: item.body ? "" : item.shortDescription || "", // Will use body in modal
-    technologies: item.technologies || [],
-    link: item.slug?.current ? `/portfolio/${item.slug.current}` : "#",
-    body: item.body || null,
-  }));
+  const aboutPage = await client.fetch<SanityDocument>(
+    ABOUT_QUERY,
+    {},
+    options,
+  );
 
   if (!aboutPage) {
     return (

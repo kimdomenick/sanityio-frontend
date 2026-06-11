@@ -34,9 +34,7 @@ export const portableTextComponents: PortableTextComponents = {
       </h6>
     ),
     normal: ({ children }) => (
-      <p className="mb-4 leading-relaxed">
-        {children}
-      </p>
+      <p className="mb-4 leading-relaxed">{children}</p>
     ),
   },
   marks: {
@@ -52,20 +50,12 @@ export const portableTextComponents: PortableTextComponents = {
       const isInternal = href.startsWith("/") || href.startsWith("#");
 
       if (isInternal) {
-        return (
-          <Link href={href}>
-            {children}
-          </Link>
-        );
+        return <Link href={href}>{children}</Link>;
       }
 
       // External link
       return (
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href={href} target="_blank" rel="noopener noreferrer">
           {children}
           <span className="sr-only"> (opens in new tab)</span>
         </a>
@@ -74,26 +64,14 @@ export const portableTextComponents: PortableTextComponents = {
   },
   list: {
     bullet: ({ children }) => (
-      <ul className="list-disc ml-6 mb-4 space-y-2">
-        {children}
-      </ul>
+      <ul className="list-disc ml-6 mb-4 space-y-2">{children}</ul>
     ),
     number: ({ children }) => (
-      <ol className="list-decimal ml-6 mb-4 space-y-2">
-        {children}
-      </ol>
+      <ol className="list-decimal ml-6 mb-4 space-y-2">{children}</ol>
     ),
   },
   listItem: {
-    bullet: ({ children }) => (
-      <li className="leading-relaxed">
-        {children}
-      </li>
-    ),
-    number: ({ children }) => (
-      <li className="leading-relaxed">
-        {children}
-      </li>
-    ),
+    bullet: ({ children }) => <li className="leading-relaxed">{children}</li>,
+    number: ({ children }) => <li className="leading-relaxed">{children}</li>,
   },
 };

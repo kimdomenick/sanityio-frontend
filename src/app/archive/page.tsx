@@ -2,6 +2,7 @@ import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 
 import { client } from "@/sanity/client";
+import type { SanityDocument } from "@/sanity/types";
 import { portableTextComponents } from "@/components/PortableTextComponents";
 import {
   StructuredData,
@@ -10,9 +11,6 @@ import {
   archiveCollectionNode,
   breadcrumbNode,
 } from "@/components/structuredData";
-
-// Type for Sanity documents
-type SanityDocument = Record<string, any>;
 
 const ARCHIVE_QUERY = `*[_type == "landingPage" && slug.current == "archive"][0]`;
 const ALL_POSTS_QUERY = `*[

@@ -4,6 +4,7 @@ import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import Image from "next/image";
 import Link from "next/link";
 import { client } from "@/sanity/client";
+import type { SanityDocument } from "@/sanity/types";
 import { portableTextComponents } from "@/components/PortableTextComponents";
 import GalleryModal, { type GalleryImage } from "@/components/GalleryModal";
 import {
@@ -14,8 +15,6 @@ import {
   breadcrumbNode,
 } from "@/components/structuredData";
 import "@/app/styles/pages/portfolioRow.css";
-
-type SanityDocument = Record<string, any>;
 
 const ROW_QUERY = `*[
   _type == "portfolioRow"
@@ -105,15 +104,17 @@ export default async function PortfolioRowPage({
     );
   }
 
-  const portfolioWorks = (row.portfolioItems ?? []).map((item: any) => ({
-    name: item.title,
-    description: item.shortDescription ?? undefined,
-    image: item.image
-      ? (urlFor(item.image as SanityImageSource)?.url() ?? undefined)
-      : undefined,
-    year: item.year ?? undefined,
-    technologies: item.technologies ?? undefined,
-  }));
+  const portfolioWorks = (row.portfolioItems ?? []).map(
+    (item: SanityDocument) => ({
+      name: item.title,
+      description: item.shortDescription ?? undefined,
+      image: item.image
+        ? (urlFor(item.image as SanityImageSource)?.url() ?? undefined)
+        : undefined,
+      year: item.year ?? undefined,
+      technologies: item.technologies ?? undefined,
+    }),
+  );
 
   return (
     <main className="portfolioRowPage" id="main-content">
@@ -195,7 +196,7 @@ export default async function PortfolioRowPage({
                 No items in this row yet.
               </p>
             )}
-            {(row.portfolioItems ?? []).map((item: any) => {
+            {(row.portfolioItems ?? []).map((item: SanityDocument) => {
               const imageUrl = item.image
                 ? (urlFor(item.image as SanityImageSource)
                     ?.width(600)
@@ -204,7 +205,7 @@ export default async function PortfolioRowPage({
                 : "/globe.svg";
 
               const rawGallery: GalleryImage[] = (item.gallery ?? [])
-                .map((img: any) => ({
+                .map((img: SanityDocument) => ({
                   url:
                     urlFor(img as SanityImageSource)
                       ?.width(1200)

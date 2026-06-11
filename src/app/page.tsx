@@ -1,8 +1,9 @@
-import Link from "next/link";
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
 import imageUrlBuilder from "@sanity/image-url";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { client } from "@/sanity/client";
+import type { SanityDocument } from "@/sanity/types";
 import { portableTextComponents } from "@/components/PortableTextComponents";
 import PortfolioRowCardExpanded from "@/components/PortfolioRowCardExpanded";
 import CardStepper from "@/components/CardStepper";
@@ -13,9 +14,6 @@ import {
   homePageNode,
 } from "@/components/structuredData";
 import "@/app/styles/pages/home.css";
-
-// Type for Sanity documents
-type SanityDocument = Record<string, any>;
 
 const HOME_QUERY = `*[_type == "landingPage" && slug.current == "home"][0]`;
 
@@ -46,7 +44,7 @@ const options = { next: { revalidate: 30 } };
 
 // Image URL builder
 const { projectId, dataset } = client.config();
-const urlFor = (source: any) =>
+const urlFor = (source: SanityImageSource) =>
   projectId && dataset
     ? imageUrlBuilder({ projectId, dataset }).image(source)
     : null;
@@ -58,8 +56,8 @@ export default async function IndexPage() {
   ]);
 
   const portfolioRowLinks = portfolioRows
-    .filter((row: any) => row.slug?.current)
-    .map((row: any) => ({
+    .filter((row: SanityDocument) => row.slug?.current)
+    .map((row: SanityDocument) => ({
       name: row.name,
       url: `/portfolio-row/${row.slug.current}`,
     }));
@@ -114,11 +112,12 @@ export default async function IndexPage() {
               <div className="overview-column">
                 <h2 className="overview-column__title">What is this site?</h2>
                 <p className="overview-column__content">
-                  It's my own personal Way Back Machine. A slightly nostalgic,
-                  slightly sarcastic tour through decades of web development.
+                  It&apos;s my own personal Way Back Machine. A slightly
+                  nostalgic, slightly sarcastic tour through decades of web
+                  development.
                 </p>
                 <p>
-                  Because if you didn't save screenshots of the things you
+                  Because if you didn&apos;t save screenshots of the things you
                   built, did they really happen?
                 </p>
               </div>
@@ -150,11 +149,11 @@ export default async function IndexPage() {
           <div className="home__flip-flop__title container mx-auto py-12">
             <h2 className="abril">The internet keeps receipts. And so do I.</h2>
           </div>
-          {portfolioRows.map((row: any, index: number) => {
+          {portfolioRows.map((row: SanityDocument, index: number) => {
             const rowTechnologies = [
               ...new Set<string>(
                 (row.portfolioItems ?? []).flatMap(
-                  (item: any) => item.technologies ?? [],
+                  (item: SanityDocument) => item.technologies ?? [],
                 ),
               ),
             ];
@@ -193,7 +192,7 @@ export default async function IndexPage() {
                   <div className="home__flip-flop__year content">
                     <CardStepper>
                       {(row.portfolioItems ?? []).map(
-                        (item: any, cardIndex: number) => (
+                        (item: SanityDocument, cardIndex: number) => (
                           <PortfolioRowCardExpanded
                             key={cardIndex}
                             title={item.title}

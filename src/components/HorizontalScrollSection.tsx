@@ -32,7 +32,6 @@ export default function HorizontalScrollSection({
     setScrollProgress(progress);
     setCanScrollLeft(scrollLeft > 0);
     setCanScrollRight(scrollLeft < scrollWidth - 1);
-
   };
 
   const scroll = (direction: "left" | "right") => {
@@ -66,7 +65,6 @@ export default function HorizontalScrollSection({
       {title && <h2 className="horizontal-scroll-section__title">{title}</h2>}
 
       <div className="horizontal-scroll-section__wrapper">
-
         {/* Left Navigation Arrow */}
         {childCount > 1 && (
           <motion.button
@@ -94,10 +92,7 @@ export default function HorizontalScrollSection({
         )}
 
         {/* Scrollable Content */}
-        <div
-          ref={scrollContainerRef}
-          className="horizontal-scroll-container"
-        >
+        <div ref={scrollContainerRef} className="horizontal-scroll-container">
           <div className="horizontal-scroll-content">{children}</div>
         </div>
 

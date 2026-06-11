@@ -2,6 +2,7 @@ import { PortableText } from "@portabletext/react";
 import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { client } from "@/sanity/client";
+import type { SanityDocument } from "@/sanity/types";
 import Link from "next/link";
 import { portableTextComponents } from "@/components/PortableTextComponents";
 import {
@@ -12,9 +13,6 @@ import {
   breadcrumbNode,
   toISODate,
 } from "@/components/structuredData";
-
-// Type for Sanity documents
-type SanityDocument = Record<string, any>;
 
 const POST_QUERY = `*[_type == "article" && slug.current == $slug][0]{
   ...,
@@ -84,6 +82,9 @@ export default async function PostPage({
         ← Back to posts
       </Link>
       {postImageUrl && (
+        // Intentional <img>: small Sanity CDN image rendered at its intrinsic
+        // ratio with explicit dimensions to reserve space (avoid CLS).
+        // eslint-disable-next-line @next/next/no-img-element
         <img
           src={postImageUrl}
           alt={post.name}

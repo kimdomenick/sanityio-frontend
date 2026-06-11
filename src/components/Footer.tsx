@@ -1,12 +1,5 @@
-import Link from "next/link";
 import Image from "next/image";
 import "@/app/styles/Footer.css";
-
-const navigationItems = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/archive", label: "Archive" },
-];
 
 export default function Footer() {
   return (
@@ -41,8 +34,8 @@ export default function Footer() {
           </div>
           <div className="site-footer__copyright">
             <p className="container mx-auto">
-              &copy; Copyright 2026. All rights reserved. As if you're gonna
-              steal this shit.
+              &copy; Copyright 2026. All rights reserved. As if you&apos;re
+              gonna steal this shit.
             </p>
           </div>
         </div>

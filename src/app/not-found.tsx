@@ -7,10 +7,10 @@ export default function NotFound() {
       <div className="not-found__content">
         <h1 className="not-found__heading">404</h1>
         <p className="not-found__message">
-          Dang. That sucks. It's probably my fault.
+          Dang. That sucks. It&apos;s probably my fault.
         </p>
-        <p>Yea, it's totally me, not you.</p>
-        <p>Maybe just go home where it's safe.</p>
+        <p>Yea, it&apos;s totally me, not you.</p>
+        <p>Maybe just go home where it&apos;s safe.</p>
         <Link href="/" className="back-link">
           ← Back to home
         </Link>
