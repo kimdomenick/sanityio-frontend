@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Tenor_Sans, Pacifico, Abril_Fatface, Oooh_Baby } from "next/font/google";
+import {
+  Geist,
+  Geist_Mono,
+  Tenor_Sans,
+  Pacifico,
+  Abril_Fatface,
+  Oooh_Baby,
+} from "next/font/google";
 import "./styles/globals.css";
 import "./styles/typography.css";
 import Header from "@/components/Header";
@@ -41,6 +48,9 @@ const ooohBaby = Oooh_Baby({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://rosecoloredcode.com",
+  ),
   title: "Rose Colored Code",
   description:
     "A technical and creative portfolio by web developer and technical writer, Kim Rosenberry",

@@ -4,6 +4,14 @@ import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { client } from "@/sanity/client";
 import Link from "next/link";
 import { portableTextComponents } from "@/components/PortableTextComponents";
+import {
+  StructuredData,
+  personNode,
+  webSiteNode,
+  articleNode,
+  breadcrumbNode,
+  toISODate,
+} from "@/components/structuredData";
 
 // Type for Sanity documents
 type SanityDocument = Record<string, any>;
@@ -54,6 +62,24 @@ export default async function PostPage({
       id="main-content"
       className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-4"
     >
+      <StructuredData
+        nodes={[
+          personNode(),
+          webSiteNode(),
+          articleNode({
+            path: `/article/${slug}`,
+            headline: post.name,
+            image: postImageUrl ?? undefined,
+            datePublished: toISODate(post.date),
+            dateModified: toISODate(post._updatedAt),
+          }),
+          breadcrumbNode([
+            { name: "Home", url: "/" },
+            { name: "Archive", url: "/archive" },
+            { name: post.name, url: `/article/${slug}` },
+          ]),
+        ]}
+      />
       <Link href="/archive" className="back-link">
         ← Back to posts
       </Link>

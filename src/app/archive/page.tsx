@@ -3,6 +3,13 @@ import { PortableText } from "@portabletext/react";
 
 import { client } from "@/sanity/client";
 import { portableTextComponents } from "@/components/PortableTextComponents";
+import {
+  StructuredData,
+  personNode,
+  webSiteNode,
+  archiveCollectionNode,
+  breadcrumbNode,
+} from "@/components/structuredData";
 
 // Type for Sanity documents
 type SanityDocument = Record<string, any>;
@@ -23,7 +30,10 @@ export default async function ArchivePage() {
 
   if (!archivePage) {
     return (
-      <main className="container mx-auto min-h-screen max-w-3xl p-8" id="main-content">
+      <main
+        className="container mx-auto min-h-screen max-w-3xl p-8"
+        id="main-content"
+      >
         <Link href="/" className="back-link">
           ← Back to home
         </Link>
@@ -32,8 +42,33 @@ export default async function ArchivePage() {
     );
   }
 
+  const articleItems = posts
+    .filter((post) => post.slug?.current)
+    .map((post) => ({
+      name: post.name,
+      url: post.slug.current,
+    }));
+
   return (
-    <main className="container mx-auto min-h-screen max-w-3xl p-8" id="main-content">
+    <main
+      className="container mx-auto min-h-screen max-w-3xl p-8"
+      id="main-content"
+    >
+      <StructuredData
+        nodes={[
+          personNode(),
+          webSiteNode(),
+          archiveCollectionNode({
+            path: "/archive",
+            name: archivePage.name,
+            articles: articleItems,
+          }),
+          breadcrumbNode([
+            { name: "Home", url: "/" },
+            { name: archivePage.name, url: "/archive" },
+          ]),
+        ]}
+      />
       <Link href="/" className="back-link">
         ← Back to home
       </Link>

@@ -6,6 +6,12 @@ import { client } from "@/sanity/client";
 import { portableTextComponents } from "@/components/PortableTextComponents";
 import PortfolioRowCardExpanded from "@/components/PortfolioRowCardExpanded";
 import CardStepper from "@/components/CardStepper";
+import {
+  StructuredData,
+  personNode,
+  webSiteNode,
+  homePageNode,
+} from "@/components/structuredData";
 import "@/app/styles/pages/home.css";
 
 // Type for Sanity documents
@@ -51,164 +57,179 @@ export default async function IndexPage() {
     client.fetch<SanityDocument[]>(PORTFOLIO_ROW_QUERY, {}, options),
   ]);
 
+  const portfolioRowLinks = portfolioRows
+    .filter((row: any) => row.slug?.current)
+    .map((row: any) => ({
+      name: row.name,
+      url: `/portfolio-row/${row.slug.current}`,
+    }));
+
   return (
-    <main className="home" id="main-content">
-      <section id="hello" className="home__hello">
-        <h1>Kimberly Rosenberry</h1>
-        <p className="my-name">
-          Frontend Developer • Systems Analyst • Technical Writer • UX
-          Collaborator
-        </p>
-      </section>
-      <section id="overview" className="home__overview">
-        <div className="container mx-auto px-8 py-12">
-          <div className="overview-grid">
-            {/* Column: Current Situation */}
-            <div className="overview-column">
-              <h2 className="overview-column__title">Who Am I?</h2>
-              <div className="overview-column__content">
-                {homePage &&
-                Array.isArray(homePage.body) &&
-                homePage.body.length > 0 ? (
-                  <PortableText
-                    value={homePage.body}
-                    components={portableTextComponents}
-                  />
-                ) : null}
-              </div>
-            </div>
-
-            {/* Icon/Graphic 1 */}
-            <div className="overview-icon">
-              <Image
-                src="/star.svg"
-                alt=""
-                width={70}
-                height={70}
-                className="overview-icon__svg"
-              />
-            </div>
-
-            {/* Column: Experience */}
-            <div className="overview-column">
-              <h2 className="overview-column__title">What is this site?</h2>
-              <p className="overview-column__content">
-                It's my own personal Way Back Machine. A slightly nostalgic,
-                slightly sarcastic tour through decades of web development.
-              </p>
-              <p>
-                Because if you didn't save screenshots of the things you built,
-                did they really happen?
-              </p>
-            </div>
-
-            {/* Icon/Graphic 2 */}
-            <div className="overview-icon">
-              <Image
-                src="/star.svg"
-                alt=""
-                width={70}
-                height={70}
-                className="overview-icon__svg"
-              />
-            </div>
-
-            {/* Column: History */}
-            <div className="overview-column">
-              <h2 className="overview-column__title">History</h2>
-              <p className="overview-column__content">25+ years of it.</p>
-              <p className="overview-column__content">
-                Scroll, please. I have evidence.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="flip-flop" className="home__flip-flop">
-        <div className="home__flip-flop__title container mx-auto py-12">
-          <h2 className="abril">The internet keeps receipts. And so do I.</h2>
-        </div>
-        {portfolioRows.map((row: any, index: number) => {
-          const rowTechnologies = [
-            ...new Set<string>(
-              (row.portfolioItems ?? []).flatMap(
-                (item: any) => item.technologies ?? [],
-              ),
-            ),
-          ];
-
-          return (
-            <section
-              key={row._id}
-              className={`home__flip-flop__year ${index % 2 === 0 ? "odd" : "even"}`}
-            >
-              <div className="container mx-auto">
-                <div className="home__flip-flop__year__title">
-                  <h3>{row.name}</h3>
-
-                  <div className="home__flip-flop__year__title__description">
+    <>
+      <StructuredData
+        nodes={[
+          personNode(),
+          webSiteNode(),
+          homePageNode({ rows: portfolioRowLinks }),
+        ]}
+      />
+      <main className="home" id="main-content">
+        <section id="hello" className="home__hello">
+          <h1>Kimberly Rosenberry</h1>
+          <p className="my-name">
+            Frontend Developer • Systems Analyst • Technical Writer • UX
+            Collaborator
+          </p>
+        </section>
+        <section id="overview" className="home__overview">
+          <div className="container mx-auto px-8 py-12">
+            <div className="overview-grid">
+              {/* Column: Current Situation */}
+              <div className="overview-column">
+                <h2 className="overview-column__title">Who Am I?</h2>
+                <div className="overview-column__content">
+                  {homePage &&
+                  Array.isArray(homePage.body) &&
+                  homePage.body.length > 0 ? (
                     <PortableText
-                      value={row.description}
+                      value={homePage.body}
                       components={portableTextComponents}
                     />
-                  </div>
-                  {row.blurb && (
-                    <p className="home__flip-flop__year__title__blurb">
-                      {row.blurb}
-                    </p>
-                  )}
-                  {rowTechnologies.length > 0 && (
-                    <ul className="home__flip-flop__year__title__technologies">
-                      {rowTechnologies.map((tech, i) => (
-                        <li key={i} className="portfolioRowCard__tech-tag">
-                          {tech}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-
-                <div className="home__flip-flop__year content">
-                  <CardStepper>
-                    {(row.portfolioItems ?? []).map(
-                      (item: any, cardIndex: number) => (
-                        <PortfolioRowCardExpanded
-                          key={cardIndex}
-                          title={item.title}
-                          year={item.year?.toString() ?? ""}
-                          image={
-                            item.image
-                              ? (urlFor(item.image)
-                                  ?.width(400)
-                                  .height(300)
-                                  .url() ?? "/globe.svg")
-                              : "/globe.svg"
-                          }
-                          description={item.shortDescription ?? ""}
-                          details={item.shortDescription ?? ""}
-                          link={
-                            item.slug?.current
-                              ? `/portfolio/${item.slug.current}`
-                              : "#"
-                          }
-                          href={
-                            row.slug?.current
-                              ? `/portfolio-row/${row.slug.current}`
-                              : undefined
-                          }
-                        />
-                      ),
-                    )}
-                  </CardStepper>
+                  ) : null}
                 </div>
               </div>
-            </section>
-          );
-        })}
-      </section>
 
-      {/* <section id="articles" className="home__articles max-w-3xl mx-auto">
+              {/* Icon/Graphic 1 */}
+              <div className="overview-icon">
+                <Image
+                  src="/star.svg"
+                  alt=""
+                  width={70}
+                  height={70}
+                  className="overview-icon__svg"
+                />
+              </div>
+
+              {/* Column: Experience */}
+              <div className="overview-column">
+                <h2 className="overview-column__title">What is this site?</h2>
+                <p className="overview-column__content">
+                  It's my own personal Way Back Machine. A slightly nostalgic,
+                  slightly sarcastic tour through decades of web development.
+                </p>
+                <p>
+                  Because if you didn't save screenshots of the things you
+                  built, did they really happen?
+                </p>
+              </div>
+
+              {/* Icon/Graphic 2 */}
+              <div className="overview-icon">
+                <Image
+                  src="/star.svg"
+                  alt=""
+                  width={70}
+                  height={70}
+                  className="overview-icon__svg"
+                />
+              </div>
+
+              {/* Column: History */}
+              <div className="overview-column">
+                <h2 className="overview-column__title">History</h2>
+                <p className="overview-column__content">25+ years of it.</p>
+                <p className="overview-column__content">
+                  Scroll, please. I have evidence.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="flip-flop" className="home__flip-flop">
+          <div className="home__flip-flop__title container mx-auto py-12">
+            <h2 className="abril">The internet keeps receipts. And so do I.</h2>
+          </div>
+          {portfolioRows.map((row: any, index: number) => {
+            const rowTechnologies = [
+              ...new Set<string>(
+                (row.portfolioItems ?? []).flatMap(
+                  (item: any) => item.technologies ?? [],
+                ),
+              ),
+            ];
+
+            return (
+              <section
+                key={row._id}
+                className={`home__flip-flop__year ${index % 2 === 0 ? "odd" : "even"}`}
+              >
+                <div className="container mx-auto">
+                  <div className="home__flip-flop__year__title">
+                    <h3>{row.name}</h3>
+
+                    <div className="home__flip-flop__year__title__description">
+                      <PortableText
+                        value={row.description}
+                        components={portableTextComponents}
+                      />
+                    </div>
+                    {row.blurb && (
+                      <p className="home__flip-flop__year__title__blurb">
+                        {row.blurb}
+                      </p>
+                    )}
+                    {rowTechnologies.length > 0 && (
+                      <ul className="home__flip-flop__year__title__technologies">
+                        {rowTechnologies.map((tech, i) => (
+                          <li key={i} className="portfolioRowCard__tech-tag">
+                            {tech}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+
+                  <div className="home__flip-flop__year content">
+                    <CardStepper>
+                      {(row.portfolioItems ?? []).map(
+                        (item: any, cardIndex: number) => (
+                          <PortfolioRowCardExpanded
+                            key={cardIndex}
+                            title={item.title}
+                            year={item.year?.toString() ?? ""}
+                            image={
+                              item.image
+                                ? (urlFor(item.image)
+                                    ?.width(400)
+                                    .height(300)
+                                    .url() ?? "/globe.svg")
+                                : "/globe.svg"
+                            }
+                            description={item.shortDescription ?? ""}
+                            details={item.shortDescription ?? ""}
+                            link={
+                              item.slug?.current
+                                ? `/portfolio/${item.slug.current}`
+                                : "#"
+                            }
+                            href={
+                              row.slug?.current
+                                ? `/portfolio-row/${row.slug.current}`
+                                : undefined
+                            }
+                          />
+                        ),
+                      )}
+                    </CardStepper>
+                  </div>
+                </div>
+              </section>
+            );
+          })}
+        </section>
+
+        {/* <section id="articles" className="home__articles max-w-3xl mx-auto">
         <h2 className="text-3xl font-bold mb-8">Latest Articles</h2>
         <ul className="flex flex-col gap-y-4">
           {posts.map((post) => (
@@ -221,6 +242,7 @@ export default async function IndexPage() {
           ))}
         </ul>
       </section> */}
-    </main>
+      </main>
+    </>
   );
 }

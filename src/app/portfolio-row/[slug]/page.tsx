@@ -6,6 +6,13 @@ import Link from "next/link";
 import { client } from "@/sanity/client";
 import { portableTextComponents } from "@/components/PortableTextComponents";
 import GalleryModal, { type GalleryImage } from "@/components/GalleryModal";
+import {
+  StructuredData,
+  personNode,
+  webSiteNode,
+  portfolioRowCollectionNode,
+  breadcrumbNode,
+} from "@/components/structuredData";
 import "@/app/styles/pages/portfolioRow.css";
 
 type SanityDocument = Record<string, any>;
@@ -98,8 +105,34 @@ export default async function PortfolioRowPage({
     );
   }
 
+  const portfolioWorks = (row.portfolioItems ?? []).map((item: any) => ({
+    name: item.title,
+    description: item.shortDescription ?? undefined,
+    image: item.image
+      ? (urlFor(item.image as SanityImageSource)?.url() ?? undefined)
+      : undefined,
+    year: item.year ?? undefined,
+    technologies: item.technologies ?? undefined,
+  }));
+
   return (
     <main className="portfolioRowPage" id="main-content">
+      <StructuredData
+        nodes={[
+          personNode(),
+          webSiteNode(),
+          portfolioRowCollectionNode({
+            path: `/portfolio-row/${slug}`,
+            name: row.name,
+            description: row.blurb ?? undefined,
+            items: portfolioWorks,
+          }),
+          breadcrumbNode([
+            { name: "Home", url: "/" },
+            { name: row.name, url: `/portfolio-row/${slug}` },
+          ]),
+        ]}
+      />
       <div className="portfolioRowPage__hero">
         <div className="portfolioRowPage__hero-inner container mx-auto px-8">
           <div className="portfolioRowPage__hero-content">

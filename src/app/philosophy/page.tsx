@@ -5,6 +5,13 @@ import HorizontalScrollSection from "@/components/HorizontalScrollSection";
 import { client } from "@/sanity/client";
 import { portableTextComponents } from "@/components/PortableTextComponents";
 import PortfolioCardExpanded from "@/components/PortfolioCardExpanded";
+import {
+  StructuredData,
+  personNode,
+  webSiteNode,
+  profilePageNode,
+  breadcrumbNode,
+} from "@/components/structuredData";
 
 // Type for Sanity documents
 type SanityDocument = Record<string, any>;
@@ -72,6 +79,20 @@ export default async function AboutPage() {
 
   return (
     <main className="about" id="main-content">
+      <StructuredData
+        nodes={[
+          personNode(),
+          webSiteNode(),
+          profilePageNode({
+            path: "/philosophy",
+            name: aboutPage.name,
+          }),
+          breadcrumbNode([
+            { name: "Home", url: "/" },
+            { name: aboutPage.name, url: "/philosophy" },
+          ]),
+        ]}
+      />
       <div className="container mx-auto min-h-screen max-w-3xl p-8">
         <Link href="/" className="back-link">
           ← Back to home
