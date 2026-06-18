@@ -118,11 +118,7 @@
     border-radius: 16px;
     font-weight: 600;
     box-shadow: 0 2px 4px rgba(246, 76, 157, 0.3);
-    transition: transform 0.2s ease;
-
-    &:hover {
-      transform: scale(1.05);
-    }
+    cursor: default;
   }
 
   /* Modal Styles */
