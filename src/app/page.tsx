@@ -200,8 +200,10 @@ export default async function IndexPage() {
                             image={
                               item.image
                                 ? (urlFor(item.image)
-                                    ?.width(400)
+                                    ?.width(480)
                                     .height(300)
+                                    .fit("crop")
+                                    .crop("top")
                                     .url() ?? "/globe.svg")
                                 : "/globe.svg"
                             }

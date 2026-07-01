@@ -199,8 +199,10 @@ export default async function PortfolioRowPage({
             {(row.portfolioItems ?? []).map((item: SanityDocument) => {
               const imageUrl = item.image
                 ? (urlFor(item.image as SanityImageSource)
-                    ?.width(600)
-                    .height(450)
+                    ?.width(640)
+                    .height(400)
+                    .fit("crop")
+                    .crop("top")
                     .url() ?? "/globe.svg")
                 : "/globe.svg";
 
@@ -208,13 +210,15 @@ export default async function PortfolioRowPage({
                 .map((img: SanityDocument) => ({
                   url:
                     urlFor(img as SanityImageSource)
-                      ?.width(1200)
-                      .height(900)
+                      ?.width(1600)
+                      .fit("max")
                       .url() ?? "",
                   thumbUrl:
                     urlFor(img as SanityImageSource)
-                      ?.width(200)
+                      ?.width(240)
                       .height(150)
+                      .fit("crop")
+                      .crop("top")
                       .url() ?? "",
                   alt: img.alt ?? item.title,
                 }))
@@ -224,13 +228,15 @@ export default async function PortfolioRowPage({
                 ? {
                     url:
                       urlFor(item.image as SanityImageSource)
-                        ?.width(1200)
-                        .height(900)
+                        ?.width(1600)
+                        .fit("max")
                         .url() ?? "",
                     thumbUrl:
                       urlFor(item.image as SanityImageSource)
-                        ?.width(200)
+                        ?.width(240)
                         .height(150)
+                        .fit("crop")
+                        .crop("top")
                         .url() ?? "",
                     alt: item.image.alt ?? item.title,
                   }
