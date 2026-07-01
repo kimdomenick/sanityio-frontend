@@ -30,6 +30,10 @@
   &__title {
     margin: 0 0 0.5rem;
 
+    @media (max-width: 900px) {
+      text-align: center;
+    }
+
     &::after {
       content: "";
       display: block;
@@ -38,6 +42,10 @@
       background: linear-gradient(90deg, var(--hot-pink) 0%, var(--lime) 100%);
       margin: 1.25rem 0;
       border-radius: 2px;
+
+      @media (max-width: 900px) {
+        margin-inline: auto;
+      }
     }
   }
 

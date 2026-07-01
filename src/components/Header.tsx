@@ -8,7 +8,7 @@ export default function Header() {
       <div className="container mx-auto px-8 py-6">
         <div className="flex flex-col items-center justify-center text-center gap-4">
           <Link href="/" className="site-header__logo-link">
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-4 md:flex-nowrap">
               <div className="flex-shrink-0">
                 <Image
                   src="/FullLogo_Transparent.png"
