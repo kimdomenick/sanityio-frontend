@@ -1,0 +1,11 @@
+[build]
+  command = "next build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Netlify's Next.js Runtime. Enables SSG, ISR (revalidate), on-demand
+# server rendering for dynamic routes, and Next image optimization.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
