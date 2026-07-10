@@ -116,10 +116,6 @@ export default async function IndexPage() {
                   nostalgic, slightly sarcastic tour through decades of web
                   development.
                 </p>
-                <p>
-                  Because if you didn&apos;t save screenshots of the things you
-                  built, did they really happen?
-                </p>
               </div>
 
               {/* Icon/Graphic 2 */}
