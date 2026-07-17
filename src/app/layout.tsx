@@ -61,12 +61,23 @@ export const metadata: Metadata = {
     url: "/",
     siteName: "Rose Colored Code",
     type: "website",
+    // Static file (not a route) so trailingSlash: true doesn't 308-redirect
+    // the image URL — social scrapers don't follow redirects for og:image.
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Rose Colored Code — a technical and creative portfolio by Kim Rosenberry",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Rose Colored Code",
     description:
       "A technical and creative portfolio by web developer and technical writer, Kim Rosenberry",
+    images: ["/og-image.png"],
   },
 };
 
