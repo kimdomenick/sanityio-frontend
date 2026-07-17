@@ -54,6 +54,20 @@ export const metadata: Metadata = {
   title: "Rose Colored Code",
   description:
     "A technical and creative portfolio by web developer and technical writer, Kim Rosenberry",
+  openGraph: {
+    title: "Rose Colored Code",
+    description:
+      "A technical and creative portfolio by web developer and technical writer, Kim Rosenberry",
+    url: "/",
+    siteName: "Rose Colored Code",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rose Colored Code",
+    description:
+      "A technical and creative portfolio by web developer and technical writer, Kim Rosenberry",
+  },
 };
 
 export default function RootLayout({

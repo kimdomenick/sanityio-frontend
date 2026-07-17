@@ -29,36 +29,31 @@
   --font-oooh-baby: var(--font-oooh-baby);
 }
 
+/* Dark mode temporarily disabled — palette needs design work before enabling.
+   To restore, uncomment this block AND the .skip-link override near the end of
+   this file. (--wine flips from deep burgundy ink to light rose, so components
+   that use it as a dark background with light text need review first.)
+
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Base surfaces — warm near-black to suit the rose-gold theme */
     --background: #15100f;
     --foreground: #f3e8e3;
-
-    /* Rose-gold family — lifted so it reads as text/accents on dark */
     --base-gold: #d98a95;
     --rich-gold: #cf95a2;
     --soft-gold: #e7d0ca;
     --alt-gold: #e6b3b3;
-
-    /* Was a deep burgundy "ink"; on dark it becomes the primary light
-       rose ink. NOTE: --wine is also used as a dark *background* with
-       light text in several components — see the list below. */
     --wine: #eaa7bb;
-
-    /* Warm neutrals / metallics — lifted off near-black */
     --copper: #d9924a;
     --brown: #c2a692;
     --tan: #fdf5dc;
     --peach: #f3d4b6;
     --burnt: #e2a074;
-
-    /* Vivid accents — already pop on dark, only lightly tuned */
     --hot-pink: #ff74b3;
     --lime: #d6ee7d;
     --watermelon: #ff8a9c;
   }
 }
+*/
 
 body {
   background: var(--background);
@@ -196,12 +191,12 @@ blockquote footer::before {
   min-height: 0; /* Important for flex children with overflow */
 }
 
-/* Dark-mode component overrides.
-   Placed after the base rules so they win on source order. */
+/* Dark-mode skip-link override — disabled along with the dark palette above.
+   Restore this together with the dark :root block.
+
 @media (prefers-color-scheme: dark) {
-  /* In dark mode --wine (the skip-link background) is a light rose,
-     so white text no longer has contrast — use the dark surface instead. */
   .skip-link {
     color: var(--background) !important;
   }
 }
+*/
